@@ -58,6 +58,10 @@
     <string name="low_confidence_instruction">कृपया अच्छी रोशनी में पत्ती की एक और स्पष्ट तस्वीर लें।</string>
     <string name="retake">↻ पुनः लें</string>
     <string name="analyze">🔬 विश्लेषण करें</string>
+    <string name="disease_identified">रोग की पहचान हुई</string>
+    <string name="back_to_home">← होम पर वापस जाएं</string>
+    <string name="close">बंद करें</string>
+    <string name="getting_advice">सलाह ली जा रही है...</string>
     <string name="disease_info_not_available">इस भविष्यवाणी के लिए बीमारी की जानकारी उपलब्ध नहीं है।</string>
     <string name="symptoms_title">🔍 लक्षण</string>
     <string name="treatment_title">💊 उपचार</string>
@@ -98,5 +102,12 @@
     <string name="advice_general_disease">असामान्य धब्बों, मलिनकिरण, मुरझाने या कवक के विकास के लिए पत्तियों, तनों और फलों का निरीक्षण करें। बुरी तरह प्रभावित पौधों की सामग्री को हटा दें और वायु संचार में सुधार करें। एक स्पष्ट फोटो समस्या की पहचान करने में भी मदद कर सकती है।</string>
     <string name="advice_pests">कीड़ों या क्षति के लिए पत्तियों के निचले हिस्से और नई कलियों का निरीक्षण करें। जब संभव हो दिखाई देने वाले कीटों को हटा दें और पौधे को स्वस्थ रखें। नियमित रूप से पौधे की निगरानी करें ताकि संक्रमण का जल्दी पता चल सके।</string>
     <string name="advice_empty_prompt">कृपया पहले अपने पौधे या फसल के बारे में एक प्रश्न दर्ज करें।</string>
-    <string name="advice_default">इस प्रश्न के लिए, पौधे की पत्तियों, मिट्टी की नमी, धूप और संपूर्ण बढ़ती परिस्थितियों की जाँच करके शुरुआत करें। यदि आप किसी विशिष्ट बीमारी या कीट से निपट रहे हैं, तो आगे के निदान के लिए पौधे के प्रभावित हिस्से की एक स्पष्ट तस्वीर लें।</string>
+    <string name="advice_default">इस प्रश्न के लिए, पौधे की पत्तियों, मिट्टी की नमी, धूप और संपूर्ण बढ़ती परिस्थितियों की जाँच करके शुरुआत करें। यदि आप किसी विशिष्ट बीमारी या कीट से निपट रहे हैं, तो आगे के निदान के लिए पौधे के प्रभावित हिस्से की एक स्पष्ट तस्वीर लें। चयन करें।</string>
+
+    <!-- Crop Selection -->
+    <string name="my_crops">मेरी फसलें</string>
+    <string name="select_your_crops">अपनी फसलें चुनें</string>
+    <string name="crop_selection_title">अपनी उगाने वाली फसलें चुनें</string>
+    <string name="crop_selection_subtitle">आसानी से प्रबंधित करने के लिए अपनी उगाने वाली फसलें चुनें।</string>
+    <string name="save_crops">फसलें सहेजें</string>
 </resources>

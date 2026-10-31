@@ -1,6 +1,5 @@
 package com.example.plantopedia.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,35 +8,51 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val LightColorScheme = lightColorScheme(
+    primary = DarkForestGreen,
+    onPrimary = Color.White,
+    primaryContainer = SageGreenTint,
+    onPrimaryContainer = DarkForestGreen,
+    secondary = SecondaryGreen,
+    onSecondary = Color.White,
+    secondaryContainer = SoftWarningTint,
+    onSecondaryContainer = StatusWarning,
+    background = WarmBeigeBackground,
+    onBackground = NearBlackText,
+    surface = WarmWhiteSurface,
+    onSurface = NearBlackText,
+    surfaceVariant = SageGreenTint,
+    onSurfaceVariant = MutedSlateText,
+    outline = EarthBorder,
+    error = StatusError,
+    onError = Color.White
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val DarkColorScheme = darkColorScheme(
+    primary = Color(0xFF81C784),
+    onPrimary = Color(0xFF10281F),
+    primaryContainer = DarkForestGreen,
+    onPrimaryContainer = Color.White,
+    secondary = SecondaryGreen,
+    onSecondary = Color(0xFF10281F),
+    background = Color(0xFF142419),
+    onBackground = Color(0xFFFAF8F2),
+    surface = Color(0xFF1E3224),
+    onSurface = Color(0xFFFAF8F2),
+    surfaceVariant = Color(0xFF26402E),
+    onSurfaceVariant = Color(0xFFC8E6C9),
+    outline = Color(0xFF3B5642),
+    error = Color(0xFFF2B8B5),
+    onError = Color(0xFF601410)
 )
 
 @Composable
 fun PlantopediaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

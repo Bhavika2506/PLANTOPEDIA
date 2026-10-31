@@ -58,6 +58,10 @@
     <string name="low_confidence_instruction">कृपया चांगल्या प्रकाशात पानावरील आणखी एक स्पष्ट फोटो घ्या.</string>
     <string name="retake">↻ पुन्हा घ्या</string>
     <string name="analyze">🔬 विश्लेषण करा</string>
+    <string name="disease_identified">रोगाची ओळख पटली</string>
+    <string name="back_to_home">← मुख्यपृष्ठावर परत जा</string>
+    <string name="close">बंद करा</string>
+    <string name="getting_advice">सल्ला मिळवत आहे...</string>
     <string name="disease_info_not_available">या अंदाजासाठी रोगाची माहिती उपलब्ध नाही.</string>
     <string name="symptoms_title">🔍 लक्षणे</string>
     <string name="treatment_title">💊 उपचार</string>
@@ -99,4 +103,11 @@
     <string name="advice_pests">कीटक किंवा नुकसानीसाठी पानांच्या खालच्या बाजूची आणि कोवळ्या कोंबांची पाहणी करा. शक्य असेल तेव्हा दिसणारे कीटक काढून टाका आणि रोप निरोगी ठेवा. नियमितपणे निरीक्षण करा जेणेकरून प्रादुर्भाव लवकर ओळखता येईल.</string>
     <string name="advice_empty_prompt">कृपया आधी तुमच्या रोपाबद्दल किंवा पिकाबद्दल प्रश्न प्रविष्ट करा.</string>
     <string name="advice_default">या प्रश्नासाठी, रोपाची पाने, मातीतील ओलावा, सूर्यप्रकाश आणि एकूण वाढीच्या परिस्थिती तपासून सुरुवात करा. जर तुम्ही एखाद्या विशिष्ट रोगाशी किंवा कीटकाशी सामना करत असाल तर पुढील निदानासाठी प्रभावित भागाचा स्पष्ट फोटो घ्या.</string>
+
+    <!-- Crop Selection -->
+    <string name="my_crops">माझी पिके</string>
+    <string name="select_your_crops">तुमची पिके निवडा</string>
+    <string name="crop_selection_title">तुम्ही उगवणारी पिके निवडा</string>
+    <string name="crop_selection_subtitle">सहज व्यवस्थापित करण्यासाठी तुमची पिके निवडा.</string>
+    <string name="save_crops">पिके जतन करा</string>
 </resources>

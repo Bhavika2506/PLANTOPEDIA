@@ -153,4 +153,18 @@ object UserManager {
     fun isRegistered(context: Context): Boolean {
         return getPrefs(context).getBoolean(KEY_REGISTERED, false)
     }
+
+    private const val KEY_SELECTED_CROPS = "selected_crops"
+
+    fun getSelectedCrops(context: Context): Set<String> {
+        val prefs = getPrefs(context)
+        val key = if (isGuest(context)) "guest_$KEY_SELECTED_CROPS" else "user_${prefs.getString(KEY_MOBILE, "default")}_$KEY_SELECTED_CROPS"
+        return prefs.getStringSet(key, emptySet()) ?: emptySet()
+    }
+
+    fun saveSelectedCrops(context: Context, crops: Set<String>) {
+        val prefs = getPrefs(context)
+        val key = if (isGuest(context)) "guest_$KEY_SELECTED_CROPS" else "user_${prefs.getString(KEY_MOBILE, "default")}_$KEY_SELECTED_CROPS"
+        prefs.edit().putStringSet(key, crops).apply()
+    }
 }

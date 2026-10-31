@@ -58,6 +58,10 @@
     <string name="low_confidence_instruction">Please capture another clear image of the leaf with good lighting.</string>
     <string name="retake">↻ Retake</string>
     <string name="analyze">🔬 Analyze</string>
+    <string name="disease_identified">Disease Identified</string>
+    <string name="back_to_home">← Back to Home</string>
+    <string name="close">Close</string>
+    <string name="getting_advice">Getting advice...</string>
     <string name="disease_info_not_available">Disease information is not available for this prediction.</string>
     <string name="symptoms_title">🔍 Symptoms</string>
     <string name="treatment_title">💊 Treatment</string>
@@ -99,4 +103,11 @@
     <string name="advice_pests">Inspect the underside of leaves and young shoots for insects or damage. Remove visible pests when possible and keep the plant healthy. Monitor the plant regularly so an infestation can be detected early.</string>
     <string name="advice_empty_prompt">Please enter a question about your plant or crop first.</string>
     <string name="advice_default">For this question, start by checking the plant\'s leaves, soil moisture, sunlight, and overall growing conditions. If you are dealing with a specific disease or pest, take a clear photo of the affected part of the plant for further diagnosis.</string>
+
+    <!-- Crop Selection -->
+    <string name="my_crops">My Crops</string>
+    <string name="select_your_crops">Select Your Crops</string>
+    <string name="crop_selection_title">Select Crops You Grow</string>
+    <string name="crop_selection_subtitle">Select the crops you grow to manage them easily.</string>
+    <string name="save_crops">Save Crops</string>
 </resources>
