@@ -6,8 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -53,17 +55,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.plantopedia.ui.theme.DarkForestGreen
-import com.example.plantopedia.ui.theme.EarthBorder
-import com.example.plantopedia.ui.theme.NearBlackText
+import androidx.compose.ui.unit.sp
+import com.example.plantopedia.ui.theme.AppBackground
+import com.example.plantopedia.ui.theme.BorderColor
+import com.example.plantopedia.ui.theme.CardBackground
+import com.example.plantopedia.ui.theme.LightGreenTint
+import com.example.plantopedia.ui.theme.PrimaryGreen
+import com.example.plantopedia.ui.theme.PrimaryText
+import com.example.plantopedia.ui.theme.SecondaryGreen
+import com.example.plantopedia.ui.theme.SecondaryText
 import com.example.plantopedia.ui.theme.StatusError
-import com.example.plantopedia.ui.theme.WarmBeigeBackground
-import com.example.plantopedia.ui.theme.WarmWhiteSurface
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,43 +104,43 @@ fun AuthScreen(
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = WarmBeigeBackground // Warm beige background
+        color = AppBackground
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 24.dp, vertical = 20.dp),
+                .padding(horizontal = 20.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Spacer(modifier = Modifier.height(16.dp))
 
-            // App Logo Icon Badge (Dark Forest Green)
-            Box(
-                modifier = Modifier
-                    .size(76.dp)
-                    .clip(RoundedCornerShape(22.dp))
-                    .background(DarkForestGreen),
-                contentAlignment = Alignment.Center
+            // App Logo Icon Circle
+            Surface(
+                modifier = Modifier.size(72.dp),
+                shape = CircleShape,
+                color = LightGreenTint,
+                border = BorderStroke(1.5.dp, PrimaryGreen)
             ) {
-                Icon(
-                    imageVector = Icons.Default.Eco,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(44.dp)
-                )
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = Icons.Default.Eco,
+                        contentDescription = null,
+                        tint = PrimaryGreen,
+                        modifier = Modifier.size(38.dp)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(14.dp))
 
             // App Branding Name
             Text(
-                text = stringResource(id = R.string.app_name),
-                style = MaterialTheme.typography.headlineLarge,
+                text = "Plantopedia",
+                style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                color = DarkForestGreen
+                color = PrimaryGreen
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -145,26 +151,24 @@ fun AuthScreen(
                 } else {
                     stringResource(id = R.string.login_title)
                 },
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                color = NearBlackText
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = PrimaryText
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            // Main Auth Form Card on Warm White Surface (#FAF8F2)
+            // Main Auth Form Card
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(18.dp),
-                color = WarmWhiteSurface,
-                border = BorderStroke(1.dp, EarthBorder),
-                shadowElevation = 0.dp
+                shape = RoundedCornerShape(16.dp),
+                color = CardBackground,
+                border = BorderStroke(1.dp, BorderColor)
             ) {
                 Column(
-                    modifier = Modifier.padding(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    modifier = Modifier.padding(18.dp),
+                    verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-
                     if (isRegisterMode) {
                         ExposedDropdownMenuBox(
                             expanded = expandedLangDropdown,
@@ -177,22 +181,24 @@ fun AuthScreen(
                                 onValueChange = {},
                                 readOnly = true,
                                 label = { Text(stringResource(id = R.string.select_language)) },
-                                textStyle = MaterialTheme.typography.bodyLarge,
+                                textStyle = MaterialTheme.typography.bodyMedium,
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Language,
                                         contentDescription = null,
-                                        tint = DarkForestGreen
+                                        tint = PrimaryGreen
                                     )
                                 },
                                 trailingIcon = {
                                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedLangDropdown)
                                 },
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = DarkForestGreen,
-                                    unfocusedBorderColor = EarthBorder
+                                    focusedBorderColor = PrimaryGreen,
+                                    unfocusedBorderColor = BorderColor,
+                                    focusedContainerColor = CardBackground,
+                                    unfocusedContainerColor = CardBackground
                                 ),
-                                shape = RoundedCornerShape(14.dp),
+                                shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier
                                     .menuAnchor()
                                     .fillMaxWidth()
@@ -207,7 +213,7 @@ fun AuthScreen(
                                         text = {
                                             Text(
                                                 text = langTriple.second,
-                                                style = MaterialTheme.typography.bodyLarge
+                                                style = MaterialTheme.typography.bodyMedium
                                             )
                                         },
                                         onClick = {
@@ -225,11 +231,16 @@ fun AuthScreen(
                             value = username,
                             onValueChange = { username = it; errorMessage = null },
                             label = { Text(stringResource(id = R.string.username)) },
-                            textStyle = MaterialTheme.typography.bodyLarge,
-                            leadingIcon = { Icon(Icons.Default.Person, null, tint = DarkForestGreen) },
-                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = DarkForestGreen, unfocusedBorderColor = EarthBorder),
+                            textStyle = MaterialTheme.typography.bodyMedium,
+                            leadingIcon = { Icon(Icons.Default.Person, null, tint = PrimaryGreen) },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = PrimaryGreen,
+                                unfocusedBorderColor = BorderColor,
+                                focusedContainerColor = CardBackground,
+                                unfocusedContainerColor = CardBackground
+                            ),
                             singleLine = true,
-                            shape = RoundedCornerShape(14.dp),
+                            shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
@@ -238,12 +249,17 @@ fun AuthScreen(
                         value = mobile,
                         onValueChange = { mobile = it; errorMessage = null },
                         label = { Text(stringResource(id = R.string.mobile_number)) },
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        leadingIcon = { Icon(Icons.Default.Phone, null, tint = DarkForestGreen) },
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = DarkForestGreen, unfocusedBorderColor = EarthBorder),
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        leadingIcon = { Icon(Icons.Default.Phone, null, tint = PrimaryGreen) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = PrimaryGreen,
+                            unfocusedBorderColor = BorderColor,
+                            focusedContainerColor = CardBackground,
+                            unfocusedContainerColor = CardBackground
+                        ),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                         singleLine = true,
-                        shape = RoundedCornerShape(14.dp),
+                        shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -251,11 +267,16 @@ fun AuthScreen(
                         value = password,
                         onValueChange = { password = it; errorMessage = null },
                         label = { Text(stringResource(id = R.string.password)) },
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        leadingIcon = { Icon(Icons.Default.Lock, null, tint = DarkForestGreen) },
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = DarkForestGreen, unfocusedBorderColor = EarthBorder),
+                        textStyle = MaterialTheme.typography.bodyMedium,
+                        leadingIcon = { Icon(Icons.Default.Lock, null, tint = PrimaryGreen) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = PrimaryGreen,
+                            unfocusedBorderColor = BorderColor,
+                            focusedContainerColor = CardBackground,
+                            unfocusedContainerColor = CardBackground
+                        ),
                         singleLine = true,
-                        shape = RoundedCornerShape(14.dp),
+                        shape = RoundedCornerShape(12.dp),
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         trailingIcon = {
@@ -263,7 +284,7 @@ fun AuthScreen(
                                 Icon(
                                     imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
                                     contentDescription = null,
-                                    tint = DarkForestGreen
+                                    tint = PrimaryGreen
                                 )
                             }
                         },
@@ -274,7 +295,7 @@ fun AuthScreen(
                         Text(
                             text = errorMessage!!,
                             color = StatusError,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(top = 2.dp)
                         )
                     }
@@ -300,9 +321,12 @@ fun AuthScreen(
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 52.dp),
-                        shape = RoundedCornerShape(14.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = DarkForestGreen, contentColor = Color.White),
+                            .heightIn(min = 50.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = PrimaryGreen,
+                            contentColor = Color.White
+                        ),
                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
                     ) {
                         Text(
@@ -315,34 +339,34 @@ fun AuthScreen(
 
                     Text(
                         text = if (isRegisterMode) stringResource(id = R.string.already_have_account) else stringResource(id = R.string.dont_have_account),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = DarkForestGreen,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = SecondaryGreen,
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { isRegisterMode = !isRegisterMode; errorMessage = null }
-                            .padding(vertical = 6.dp)
+                            .padding(vertical = 4.dp)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedButton(
                 onClick = { UserManager.setGuestMode(context, true); onAuthSuccess() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 52.dp),
-                shape = RoundedCornerShape(14.dp),
-                border = BorderStroke(1.5.dp, DarkForestGreen),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = DarkForestGreen),
+                    .heightIn(min = 50.dp),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.dp, BorderColor),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = PrimaryText),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.continue_as_guest),
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
             }
