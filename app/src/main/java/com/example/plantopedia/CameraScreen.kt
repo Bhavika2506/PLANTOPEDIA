@@ -12,11 +12,10 @@ import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -44,8 +43,6 @@ import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -70,19 +67,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import coil.compose.rememberAsyncImagePainter
-import com.example.plantopedia.ui.theme.DarkForestGreen
-import com.example.plantopedia.ui.theme.EarthBorder
-import com.example.plantopedia.ui.theme.MutedSlateText
-import com.example.plantopedia.ui.theme.NearBlackText
-import com.example.plantopedia.ui.theme.StatusError
+import com.example.plantopedia.ui.theme.AppBackground
+import com.example.plantopedia.ui.theme.BorderColor
+import com.example.plantopedia.ui.theme.CardBackground
+import com.example.plantopedia.ui.theme.LightGreenTint
+import com.example.plantopedia.ui.theme.PrimaryGreen
+import com.example.plantopedia.ui.theme.PrimaryText
+import com.example.plantopedia.ui.theme.SecondaryGreen
+import com.example.plantopedia.ui.theme.SecondaryText
 import com.example.plantopedia.ui.theme.StatusSuccess
 import com.example.plantopedia.ui.theme.StatusWarning
-import com.example.plantopedia.ui.theme.WarmBeigeBackground
-import com.example.plantopedia.ui.theme.WarmWhiteSurface
 import java.io.File
 
 fun formatLabel(label: String): String {
@@ -190,7 +189,6 @@ fun CameraScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-
         AndroidView(
             factory = { ctx: Context ->
                 val previewView = PreviewView(ctx)
@@ -224,16 +222,14 @@ fun CameraScreen(
             modifier = Modifier.fillMaxSize()
         )
 
-        /*
-         * Translucent Back Button on top of live camera (Dark Forest Green translucent)
-         */
+        // Clean Translucent Back Button
         Surface(
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(16.dp)
                 .clip(CircleShape)
                 .align(Alignment.TopStart),
-            color = DarkForestGreen.copy(alpha = 0.7f),
+            color = Color.Black.copy(alpha = 0.5f),
             contentColor = Color.White
         ) {
             IconButton(onClick = onBack) {
@@ -244,55 +240,55 @@ fun CameraScreen(
             }
         }
 
-        /*
-         * Clean Capture Button Overlay (Dark Forest Green Pill with camera icon)
-         */
-        Button(
-            onClick = {
-                val capture = imageCapture ?: return@Button
-                val photoFile = File(
-                    context.cacheDir,
-                    "crop_${System.currentTimeMillis()}.jpg"
-                )
-
-                val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
-                capture.takePicture(
-                    outputOptions,
-                    ContextCompat.getMainExecutor(context),
-                    object : ImageCapture.OnImageSavedCallback {
-                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                            capturedImageUri = Uri.fromFile(photoFile)
-                        }
-
-                        override fun onError(exception: ImageCaptureException) {
-                            exception.printStackTrace()
-                        }
-                    }
-                )
-            },
+        // Circular Shutter Capture Button
+        Surface(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 44.dp)
-                .size(76.dp),
+                .padding(bottom = 40.dp)
+                .size(76.dp)
+                .clip(CircleShape)
+                .clickable {
+                    val capture = imageCapture ?: return@clickable
+                    val photoFile = File(
+                        context.cacheDir,
+                        "crop_${System.currentTimeMillis()}.jpg"
+                    )
+
+                    val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+                    capture.takePicture(
+                        outputOptions,
+                        ContextCompat.getMainExecutor(context),
+                        object : ImageCapture.OnImageSavedCallback {
+                            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                capturedImageUri = Uri.fromFile(photoFile)
+                            }
+
+                            override fun onError(exception: ImageCaptureException) {
+                                exception.printStackTrace()
+                            }
+                        }
+                    )
+                },
             shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = DarkForestGreen,
-                contentColor = Color.White
-            ),
-            elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
+            color = PrimaryGreen,
+            border = BorderStroke(4.dp, Color.White),
+            shadowElevation = 6.dp
         ) {
-            Icon(
-                imageVector = Icons.Default.PhotoCamera,
-                contentDescription = stringResource(id = R.string.camera_capture),
-                modifier = Modifier.size(36.dp)
-            )
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = Icons.Default.PhotoCamera,
+                    contentDescription = stringResource(id = R.string.camera_capture),
+                    tint = Color.White,
+                    modifier = Modifier.size(34.dp)
+                )
+            }
         }
     }
 }
 
 /*
- * Screen shown after capturing an image matching Reference Screens 4 & 5.
+ * Screen shown after capturing an image.
  */
 @Composable
 fun CapturedImageScreen(
@@ -311,387 +307,336 @@ fun CapturedImageScreen(
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = WarmBeigeBackground // Warm beige background
+        color = AppBackground
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 20.dp, vertical = 16.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-
-            // Top Navigation Bar Row with back icon
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+            // Compact Header Bar
+            Surface(
+                color = CardBackground,
+                border = BorderStroke(1.dp, BorderColor),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = DarkForestGreen
+                Row(
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = PrimaryGreen
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.size(8.dp))
+
+                    Text(
+                        text = stringResource(id = R.string.crop_analysis),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = PrimaryText
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            ) {
+                // Captured plant image card
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(240.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    color = CardBackground,
+                    border = BorderStroke(1.dp, BorderColor)
+                ) {
+                    Image(
+                        painter = rememberAsyncImagePainter(imageUri),
+                        contentDescription = stringResource(id = R.string.crop_analysis),
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
                     )
                 }
 
-                Spacer(modifier = Modifier.size(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    text = stringResource(id = R.string.crop_analysis),
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = NearBlackText
-                )
-            }
-
-            Spacer(modifier = Modifier.height(14.dp))
-
-            /*
-             * Captured plant image card matching Reference Screen 4 & 5 styling
-             */
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(260.dp),
-                shape = RoundedCornerShape(20.dp),
-                color = WarmWhiteSurface,
-                border = BorderStroke(1.dp, EarthBorder),
-                shadowElevation = 0.dp
-            ) {
-                Image(
-                    painter = rememberAsyncImagePainter(imageUri),
-                    contentDescription = stringResource(id = R.string.crop_analysis),
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            /*
-             * Analysis loading state
-             */
-            if (isAnalyzing) {
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(18.dp),
-                    color = WarmWhiteSurface,
-                    border = BorderStroke(1.dp, EarthBorder),
-                    shadowElevation = 0.dp
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(24.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        CircularProgressIndicator(
-                            color = DarkForestGreen
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Text(
-                            text = stringResource(id = R.string.analyzing_crop),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold,
-                            color = DarkForestGreen
-                        )
-                    }
-                }
-            }
-            /*
-             * Diagnosis/result display
-             */
-            else if (prediction != null) {
-                val confidence = prediction.confidence * 100
-                val isLowConfidence = confidence < 40
-
-                if (isLowConfidence) {
-                    // Low confidence warning card
-                    Card(
+                // Analysis loading state
+                if (isAnalyzing) {
+                    Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(18.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = WarmWhiteSurface,
-                            contentColor = StatusWarning
-                        ),
-                        border = BorderStroke(1.dp, StatusWarning)
+                        shape = RoundedCornerShape(16.dp),
+                        color = CardBackground,
+                        border = BorderStroke(1.dp, BorderColor)
                     ) {
-                        Column(modifier = Modifier.padding(18.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.Default.Warning,
-                                    contentDescription = null,
-                                    tint = StatusWarning,
-                                    modifier = Modifier.size(24.dp)
-                                )
-                                Spacer(modifier = Modifier.size(8.dp))
-                                Text(
-                                    text = stringResource(id = R.string.low_confidence_title),
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = StatusWarning
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Text(
-                                text = stringResource(id = R.string.low_confidence_desc),
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = NearBlackText
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(24.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CircularProgressIndicator(
+                                color = PrimaryGreen,
+                                strokeWidth = 3.dp
                             )
 
-                            Spacer(modifier = Modifier.height(4.dp))
+                            Spacer(modifier = Modifier.height(14.dp))
 
                             Text(
-                                text = stringResource(id = R.string.confidence_label, confidence),
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = StatusWarning
-                            )
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Text(
-                                text = stringResource(id = R.string.low_confidence_instruction),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MutedSlateText
+                                text = stringResource(id = R.string.analyzing_crop),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                color = PrimaryGreen
                             )
                         }
                     }
-                } else {
-                    // Normal Diagnosis Header Card with botanical chips
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(18.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = WarmWhiteSurface,
-                            contentColor = NearBlackText
-                        ),
-                        border = BorderStroke(1.dp, EarthBorder),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-                    ) {
-                        Column(modifier = Modifier.padding(20.dp)) {
-                            // Plant / Crop Name Header
-                            Text(
-                                text = diseaseInfo?.crop ?: prediction.crop ?: formatLabel(prediction.label),
-                                style = MaterialTheme.typography.headlineLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = NearBlackText
-                            )
+                }
+                // Diagnosis result display
+                else if (prediction != null) {
+                    val confidence = prediction.confidence * 100
+                    val isLowConfidence = confidence < 40
 
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text(
-                                text = diseaseInfo?.disease ?: formatLabel(prediction.label),
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.SemiBold,
-                                color = DarkForestGreen
-                            )
-
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            // Tags / Chips Row matching Reference Screen 5 with responsive wrap
-                            @OptIn(ExperimentalLayoutApi::class)
-                            FlowRow(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                // Dark Green Pill Chip
-                                Surface(
-                                    shape = RoundedCornerShape(16.dp),
-                                    color = DarkForestGreen
-                                ) {
+                    if (isLowConfidence) {
+                        // Low confidence warning card
+                        Surface(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(16.dp),
+                            color = CardBackground,
+                            border = BorderStroke(1.dp, StatusWarning)
+                        ) {
+                            Column(modifier = Modifier.padding(18.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(
+                                        imageVector = Icons.Default.Warning,
+                                        contentDescription = null,
+                                        tint = StatusWarning,
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                    Spacer(modifier = Modifier.size(8.dp))
                                     Text(
-                                        text = stringResource(id = R.string.disease_identified),
-                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                                        style = MaterialTheme.typography.bodySmall,
-                                        fontWeight = FontWeight.Medium,
-                                        color = Color.White
+                                        text = stringResource(id = R.string.low_confidence_title),
+                                        style = MaterialTheme.typography.titleMedium,
+                                        fontWeight = FontWeight.Bold,
+                                        color = StatusWarning
                                     )
                                 }
 
-                                // Confidence Status Pill Chip
-                                Surface(
-                                    shape = RoundedCornerShape(16.dp),
-                                    color = MaterialTheme.colorScheme.primaryContainer
-                                ) {
-                                    Row(
-                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.CheckCircle,
-                                            contentDescription = null,
-                                            tint = StatusSuccess,
-                                            modifier = Modifier.size(14.dp)
-                                        )
-                                        Text(
-                                            text = stringResource(id = R.string.confidence_label, confidence),
-                                            style = MaterialTheme.typography.bodySmall,
-                                            fontWeight = FontWeight.Bold,
-                                            color = DarkForestGreen
-                                        )
-                                    }
-                                }
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Text(
+                                    text = stringResource(id = R.string.low_confidence_desc),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = PrimaryText
+                                )
+
+                                Spacer(modifier = Modifier.height(6.dp))
+
+                                Text(
+                                    text = stringResource(id = R.string.low_confidence_instruction),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = SecondaryText
+                                )
                             }
                         }
-                    }
-
-                    Spacer(modifier = Modifier.height(14.dp))
-
-                    /*
-                     * Disease Info breakdown cards (Symptoms, Treatment, Prevention)
-                     */
-                    if (diseaseInfo != null) {
-                        DiseaseInfoCard(
-                            title = stringResource(id = R.string.symptoms_title),
-                            content = diseaseInfo.symptoms,
-                            icon = Icons.Default.Search
-                        )
-
-                        DiseaseInfoCard(
-                            title = stringResource(id = R.string.treatment_title),
-                            content = diseaseInfo.treatment,
-                            icon = Icons.Default.MedicalServices
-                        )
-
-                        DiseaseInfoCard(
-                            title = stringResource(id = R.string.prevention_title),
-                            content = diseaseInfo.prevention,
-                            icon = Icons.Default.Shield
-                        )
                     } else {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 6.dp),
+                        // Clean Diagnosis Header Card
+                        Surface(
+                            modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(16.dp),
-                            border = BorderStroke(1.dp, EarthBorder)
+                            color = CardBackground,
+                            border = BorderStroke(1.dp, BorderColor)
                         ) {
-                            Text(
-                                text = stringResource(id = R.string.disease_info_not_available),
-                                modifier = Modifier.padding(16.dp),
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MutedSlateText
+                            Column(modifier = Modifier.padding(18.dp)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = diseaseInfo?.crop ?: prediction.crop ?: formatLabel(prediction.label),
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = PrimaryText
+                                    )
+
+                                    // Confidence Pill
+                                    Surface(
+                                        shape = RoundedCornerShape(12.dp),
+                                        color = LightGreenTint,
+                                        border = BorderStroke(1.dp, BorderColor)
+                                    ) {
+                                        Row(
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.CheckCircle,
+                                                contentDescription = null,
+                                                tint = StatusSuccess,
+                                                modifier = Modifier.size(13.dp)
+                                            )
+                                            Text(
+                                                text = stringResource(id = R.string.confidence_label, confidence),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                fontWeight = FontWeight.Bold,
+                                                color = PrimaryGreen
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                Text(
+                                    text = diseaseInfo?.disease ?: formatLabel(prediction.label),
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = PrimaryGreen
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+                        // Symptoms, Treatment, Prevention Breakdown
+                        if (diseaseInfo != null) {
+                            DiseaseInfoCard(
+                                title = stringResource(id = R.string.symptoms_title),
+                                content = diseaseInfo.symptoms,
+                                icon = Icons.Default.Search
+                            )
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            DiseaseInfoCard(
+                                title = stringResource(id = R.string.treatment_title),
+                                content = diseaseInfo.treatment,
+                                icon = Icons.Default.MedicalServices
+                            )
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            DiseaseInfoCard(
+                                title = stringResource(id = R.string.prevention_title),
+                                content = diseaseInfo.prevention,
+                                icon = Icons.Default.Shield
                             )
                         }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-            /*
-             * Retake + Analyze Buttons (min 52dp height, responsive to script lengths)
-             */
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                OutlinedButton(
-                    onClick = onRetake,
-                    modifier = Modifier
-                        .weight(1f)
-                        .heightIn(min = 52.dp),
-                    shape = RoundedCornerShape(14.dp),
-                    border = BorderStroke(1.5.dp, DarkForestGreen),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = DarkForestGreen
-                    ),
-                    contentPadding = PaddingValues(horizontal = 6.dp, vertical = 10.dp)
+                // Action Buttons: Retake / Analyze
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    OutlinedButton(
+                        onClick = onRetake,
+                        modifier = Modifier
+                            .weight(1f)
+                            .heightIn(min = 50.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        border = BorderStroke(1.dp, BorderColor),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = PrimaryText
+                        )
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.retake).replace("↻", "").trim(),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+
+                    Button(
+                        onClick = onAnalyze,
+                        enabled = !isAnalyzing && prediction == null,
+                        modifier = Modifier
+                            .weight(1f)
+                            .heightIn(min = 50.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = PrimaryGreen,
+                            contentColor = Color.White
                         )
-                        Text(
-                            text = stringResource(id = R.string.retake).replace("↻", "").trim(),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Science,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.analyze).replace("🔬", "").trim(),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
                 }
 
-                Button(
-                    onClick = onAnalyze,
-                    enabled = !isAnalyzing && prediction == null,
-                    modifier = Modifier
-                        .weight(1f)
-                        .heightIn(min = 52.dp),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = DarkForestGreen,
-                        contentColor = Color.White
-                    ),
-                    contentPadding = PaddingValues(horizontal = 6.dp, vertical = 10.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                if (prediction != null && !isAnalyzing) {
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Button(
+                        onClick = onBack,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 50.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = PrimaryGreen,
+                            contentColor = Color.White
+                        )
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Science,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
-                        )
-                        Text(
-                            text = stringResource(id = R.string.analyze).replace("🔬", "").trim(),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Home,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.back_to_home).replace("←", "").trim(),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
+
+                Spacer(modifier = Modifier.height(24.dp))
             }
-
-            // Back to Home button after analysis is ready (min 52dp height, Dark Forest Green pill)
-            if (prediction != null && !isAnalyzing) {
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Button(
-                    onClick = onBack,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 52.dp),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = DarkForestGreen,
-                        contentColor = Color.White
-                    ),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Home,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                        Text(
-                            text = stringResource(id = R.string.back_to_home).replace("←", "").trim(),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
@@ -702,35 +647,37 @@ fun DiseaseInfoCard(
     content: String,
     icon: ImageVector = Icons.Default.Search
 ) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 5.dp),
-        shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = WarmWhiteSurface,
-            contentColor = NearBlackText
-        ),
-        border = BorderStroke(1.dp, EarthBorder),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        color = CardBackground,
+        border = BorderStroke(1.dp, BorderColor)
     ) {
-        Column(modifier = Modifier.padding(18.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = DarkForestGreen,
-                    modifier = Modifier.size(20.dp)
-                )
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = LightGreenTint,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            tint = PrimaryGreen,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
 
                 Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleLarge,
+                    text = title.replace(Regex("^[\\uD83C-\\uDBFF\\uDC00-\\uDFFF]+\\s*"), "").trim(),
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = DarkForestGreen
+                    color = PrimaryGreen
                 )
             }
 
@@ -738,9 +685,9 @@ fun DiseaseInfoCard(
 
             Text(
                 text = content,
-                style = MaterialTheme.typography.bodyLarge,
-                color = NearBlackText,
-                lineHeight = MaterialTheme.typography.bodyLarge.lineHeight
+                style = MaterialTheme.typography.bodyMedium,
+                color = PrimaryText,
+                lineHeight = 22.sp
             )
         }
     }

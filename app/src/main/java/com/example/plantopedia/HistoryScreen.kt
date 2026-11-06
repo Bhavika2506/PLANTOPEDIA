@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Eco
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.MedicalServices
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Search
@@ -54,14 +56,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.plantopedia.ui.theme.DarkForestGreen
-import com.example.plantopedia.ui.theme.EarthBorder
-import com.example.plantopedia.ui.theme.MutedSlateText
-import com.example.plantopedia.ui.theme.NearBlackText
-import com.example.plantopedia.ui.theme.SageGreenTint
+import androidx.compose.ui.unit.sp
+import com.example.plantopedia.ui.theme.AppBackground
+import com.example.plantopedia.ui.theme.BorderColor
+import com.example.plantopedia.ui.theme.CardBackground
+import com.example.plantopedia.ui.theme.LightGreenTint
+import com.example.plantopedia.ui.theme.PrimaryGreen
+import com.example.plantopedia.ui.theme.PrimaryText
+import com.example.plantopedia.ui.theme.SecondaryGreen
+import com.example.plantopedia.ui.theme.SecondaryText
 import com.example.plantopedia.ui.theme.StatusSuccess
-import com.example.plantopedia.ui.theme.WarmBeigeBackground
-import com.example.plantopedia.ui.theme.WarmWhiteSurface
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -90,124 +94,149 @@ fun HistoryScreen() {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = WarmBeigeBackground // Warm beige background (#E9E2D5)
+        color = AppBackground
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),
-            contentPadding = PaddingValues(
-                start = 20.dp,
-                end = 20.dp,
-                top = 20.dp,
-                bottom = 28.dp
-            ),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.scan_history_title),
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = NearBlackText
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = stringResource(id = R.string.scan_history_subtitle),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MutedSlateText
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-            }
-
-            if (historyItems.isEmpty()) {
-                item {
+            // COMPACT TOP HEADER
+            Surface(
+                color = CardBackground,
+                border = BorderStroke(1.dp, BorderColor),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .padding(horizontal = 20.dp, vertical = 12.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(20.dp),
-                        color = WarmWhiteSurface,
-                        border = BorderStroke(1.dp, EarthBorder),
-                        shadowElevation = 0.dp
+                        shape = CircleShape,
+                        color = LightGreenTint,
+                        modifier = Modifier.size(36.dp)
                     ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(28.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(76.dp)
-                                    .clip(RoundedCornerShape(38.dp))
-                                    .background(SageGreenTint),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Eco,
-                                    contentDescription = null,
-                                    tint = DarkForestGreen,
-                                    modifier = Modifier.size(40.dp)
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(16.dp))
-
-                            Text(
-                                text = stringResource(id = R.string.no_scans_yet),
-                                style = MaterialTheme.typography.headlineSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = NearBlackText
-                            )
-
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text(
-                                text = stringResource(id = R.string.no_scans_yet_desc),
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MutedSlateText
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = Icons.Default.History,
+                                contentDescription = null,
+                                tint = PrimaryGreen,
+                                modifier = Modifier.size(20.dp)
                             )
                         }
                     }
-                }
-            } else {
-                if (todayItems.isNotEmpty()) {
-                    item {
+
+                    Spacer(modifier = Modifier.size(10.dp))
+
+                    Column {
                         Text(
-                            text = stringResource(id = R.string.history_today),
+                            text = stringResource(id = R.string.scan_history_title),
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
-                            color = DarkForestGreen
+                            color = PrimaryText
                         )
-                    }
-
-                    items(todayItems) { item ->
-                        HistoryCard(
-                            item = item,
-                            onClick = { selectedItemForDetail = item }
+                        Text(
+                            text = stringResource(id = R.string.scan_history_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = SecondaryText
                         )
                     }
                 }
+            }
 
-                if (earlierItems.isNotEmpty()) {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                if (historyItems.isEmpty()) {
                     item {
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Surface(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(16.dp),
+                            color = CardBackground,
+                            border = BorderStroke(1.dp, BorderColor)
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(28.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Surface(
+                                    modifier = Modifier.size(64.dp),
+                                    shape = CircleShape,
+                                    color = LightGreenTint
+                                ) {
+                                    Box(contentAlignment = Alignment.Center) {
+                                        Icon(
+                                            imageVector = Icons.Default.Eco,
+                                            contentDescription = null,
+                                            tint = PrimaryGreen,
+                                            modifier = Modifier.size(32.dp)
+                                        )
+                                    }
+                                }
 
-                        Text(
-                            text = stringResource(id = R.string.history_earlier),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = DarkForestGreen
-                        )
+                                Spacer(modifier = Modifier.height(14.dp))
+
+                                Text(
+                                    text = stringResource(id = R.string.no_scans_yet),
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = PrimaryText
+                                )
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                Text(
+                                    text = stringResource(id = R.string.no_scans_yet_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = SecondaryText
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    if (todayItems.isNotEmpty()) {
+                        item {
+                            Text(
+                                text = stringResource(id = R.string.history_today),
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimaryGreen,
+                                modifier = Modifier.padding(start = 2.dp, top = 2.dp)
+                            )
+                        }
+
+                        items(todayItems) { item ->
+                            HistoryCard(
+                                item = item,
+                                onClick = { selectedItemForDetail = item }
+                            )
+                        }
                     }
 
-                    items(earlierItems) { item ->
-                        HistoryCard(
-                            item = item,
-                            onClick = { selectedItemForDetail = item }
-                        )
+                    if (earlierItems.isNotEmpty()) {
+                        item {
+                            Spacer(modifier = Modifier.height(4.dp))
+
+                            Text(
+                                text = stringResource(id = R.string.history_earlier),
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimaryGreen,
+                                modifier = Modifier.padding(start = 2.dp, top = 2.dp)
+                            )
+                        }
+
+                        items(earlierItems) { item ->
+                            HistoryCard(
+                                item = item,
+                                onClick = { selectedItemForDetail = item }
+                            )
+                        }
                     }
                 }
             }
@@ -229,8 +258,8 @@ fun HistoryScreen() {
                     .fillMaxWidth()
                     .padding(16.dp),
                 shape = RoundedCornerShape(20.dp),
-                color = WarmWhiteSurface,
-                border = BorderStroke(1.dp, EarthBorder)
+                color = CardBackground,
+                border = BorderStroke(1.dp, BorderColor)
             ) {
                 Column(
                     modifier = Modifier
@@ -245,44 +274,51 @@ fun HistoryScreen() {
                     ) {
                         Text(
                             text = displayCrop,
-                            style = MaterialTheme.typography.headlineSmall,
+                            style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
-                            color = NearBlackText
+                            color = PrimaryText
                         )
                         IconButton(onClick = { selectedItemForDetail = null }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = "Close",
-                                tint = MutedSlateText
+                                tint = SecondaryText
                             )
                         }
                     }
 
                     Text(
                         text = displayDisease,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
-                        color = DarkForestGreen
+                        color = PrimaryGreen
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = LightGreenTint,
+                        border = BorderStroke(1.dp, BorderColor)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.CheckCircle,
-                            contentDescription = null,
-                            tint = StatusSuccess,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Text(
-                            text = "${(item.confidence * 100).toInt()}% Confidence",
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = StatusSuccess
-                        )
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = StatusSuccess,
+                                modifier = Modifier.size(14.dp)
+                            )
+                            Text(
+                                text = "${(item.confidence * 100).toInt()}% Confidence",
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimaryGreen
+                            )
+                        }
                     }
 
                     if (diseaseInfo != null) {
@@ -313,10 +349,10 @@ fun HistoryScreen() {
                         onClick = { selectedItemForDetail = null },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .heightIn(min = 52.dp),
-                        shape = RoundedCornerShape(14.dp),
+                            .heightIn(min = 48.dp),
+                        shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = DarkForestGreen,
+                            containerColor = PrimaryGreen,
                             contentColor = Color.White
                         ),
                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
@@ -339,29 +375,38 @@ fun DetailSection(
     title: String,
     content: String
 ) {
-    Column(modifier = Modifier.padding(vertical = 6.dp)) {
+    Column(modifier = Modifier.padding(vertical = 5.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = DarkForestGreen,
-                modifier = Modifier.size(18.dp)
-            )
+            Surface(
+                shape = RoundedCornerShape(6.dp),
+                color = LightGreenTint,
+                modifier = Modifier.size(24.dp)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = PrimaryGreen,
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
             Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
+                text = title.replace(Regex("^[\\uD83C-\\uDBFF\\uDC00-\\uDFFF]+\\s*"), "").trim(),
+                style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
-                color = DarkForestGreen
+                color = PrimaryGreen
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = content,
-            style = MaterialTheme.typography.bodyMedium,
-            color = NearBlackText
+            style = MaterialTheme.typography.bodySmall,
+            color = PrimaryText,
+            lineHeight = 18.sp
         )
     }
 }
@@ -381,53 +426,50 @@ fun HistoryCard(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(18.dp))
+            .clip(RoundedCornerShape(14.dp))
             .clickable { onClick() },
-        shape = RoundedCornerShape(18.dp),
-        color = WarmWhiteSurface, // #FAF8F2
-        border = BorderStroke(1.dp, EarthBorder), // #D1C9BC
-        shadowElevation = 0.dp
+        shape = RoundedCornerShape(14.dp),
+        color = CardBackground,
+        border = BorderStroke(1.dp, BorderColor)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(14.dp),
+                .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Plant / Crop Thumbnail container
-            Box(
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(RoundedCornerShape(14.dp))
-                    .background(SageGreenTint),
-                contentAlignment = Alignment.Center
+            Surface(
+                modifier = Modifier.size(48.dp),
+                shape = CircleShape,
+                color = LightGreenTint,
+                border = BorderStroke(1.dp, BorderColor)
             ) {
-                Text(
-                    text = emoji,
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                Box(contentAlignment = Alignment.Center) {
+                    Text(
+                        text = emoji,
+                        fontSize = 22.sp
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.size(14.dp))
+            Spacer(modifier = Modifier.size(12.dp))
 
             Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = 8.dp)
             ) {
-                // Bold Disease Title
                 Text(
                     text = displayDisease,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = NearBlackText,
+                    color = PrimaryText,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
-                // Confidence badge matching Reference Screen 2 & 4
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -436,7 +478,7 @@ fun HistoryCard(
                         imageVector = Icons.Default.CheckCircle,
                         contentDescription = null,
                         tint = StatusSuccess,
-                        modifier = Modifier.size(14.dp)
+                        modifier = Modifier.size(13.dp)
                     )
 
                     Text(
@@ -445,7 +487,7 @@ fun HistoryCard(
                             displayCrop,
                             item.confidence * 100f
                         ),
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
                         color = StatusSuccess,
                         maxLines = 1,
@@ -453,9 +495,8 @@ fun HistoryCard(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
-                // Date & Time
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -463,35 +504,34 @@ fun HistoryCard(
                     Icon(
                         imageVector = Icons.Default.Schedule,
                         contentDescription = null,
-                        tint = MutedSlateText,
-                        modifier = Modifier.size(13.dp)
+                        tint = SecondaryText,
+                        modifier = Modifier.size(12.dp)
                     )
 
                     Text(
                         text = formatTime(item.timestamp),
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = FontWeight.Medium,
-                        color = MutedSlateText
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Normal,
+                        color = SecondaryText
                     )
                 }
             }
 
-            // Right chevron (>) matching Reference Screen 2
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                 contentDescription = null,
-                tint = MutedSlateText,
-                modifier = Modifier.size(16.dp)
+                tint = SecondaryText,
+                modifier = Modifier.size(14.dp)
             )
         }
     }
 }
 
-// Retain overloaded HistoryItem for backward compatibility
+// Overload for backward compatibility
 @Composable
 fun HistoryItem(
     item: ScanHistoryItem,
-    darkGreen: Color = DarkForestGreen,
+    darkGreen: Color = PrimaryGreen,
     orange: Color = StatusSuccess
 ) {
     HistoryCard(item = item)
