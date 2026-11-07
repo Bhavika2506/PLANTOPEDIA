@@ -48,6 +48,12 @@
     <string name="weather_wind">12 किमी/तास वारा</string>
     <string name="step_take_photo">1. बाधित पानाचा फोटो घ्या</string>
     <string name="step_get_diagnosis">2. रोग निदान व उपाय पहा</string>
+    <string name="step_take_picture">फोटो काढा</string>
+    <string name="step_see_diagnosis">निदान पहा</string>
+    <string name="step_get_treatment">उपचार मिळवा</string>
+    <string name="spraying_conditions">फवारणीची स्थिती</string>
+    <string name="spraying_optimal">अनुकूल</string>
+    <string name="spraying_rest_of_day">दिवसभर</string>
     <string name="add_crop">पीक जोडा</string>
     <string name="camera_ready">कॅमेरा तयार आहे ✓</string>
     <string name="camera_permission_required">कॅमेरा परवानगी आवश्यक आहे</string>
