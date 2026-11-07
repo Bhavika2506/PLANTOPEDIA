@@ -23,8 +23,8 @@ import androidx.compose.foundation.layout.size
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.Icon
@@ -175,20 +175,20 @@ class MainActivity : ComponentActivity() {
                                             )
 
                                             NavigationBarItem(
-                                                selected = currentScreen == "camera",
-                                                onClick = { currentScreen = "camera" },
+                                                selected = currentScreen == "community",
+                                                onClick = { currentScreen = "community" },
                                                 icon = {
                                                     Icon(
-                                                        imageVector = Icons.Default.PhotoCamera,
-                                                        contentDescription = stringResource(R.string.nav_scan),
+                                                        imageVector = Icons.Default.Groups,
+                                                        contentDescription = stringResource(R.string.nav_community),
                                                         modifier = Modifier.size(24.dp)
                                                     )
                                                 },
                                                 label = {
                                                     Text(
-                                                        text = stringResource(R.string.nav_scan),
+                                                        text = stringResource(R.string.nav_community),
                                                         style = MaterialTheme.typography.labelSmall,
-                                                        fontWeight = if (currentScreen == "camera") FontWeight.Bold else FontWeight.Medium
+                                                        fontWeight = if (currentScreen == "community") FontWeight.Bold else FontWeight.Medium
                                                     )
                                                 },
                                                 colors = NavigationBarItemDefaults.colors(
@@ -278,6 +278,16 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
 
+                                "community" -> {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CommunityScreen()
+                                    }
+                                }
+
                                 "market" -> {
                                     Box(
                                         modifier = Modifier
@@ -294,18 +304,20 @@ class MainActivity : ComponentActivity() {
                                             .fillMaxSize()
                                             .padding(innerPadding)
                                     ) {
-                                        AdvisorScreen()
+                                        AdvisorScreen(
+                                            onHistoryClick = { currentScreen = "advisor_history" }
+                                        )
                                     }
                                 }
 
                                 "advisor_history" -> {
-                                    BackHandler { currentScreen = "home" }
+                                    BackHandler { currentScreen = "advisor" }
                                     Box(
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)
                                     ) {
-                                        HistoryScreen(onBack = { currentScreen = "home" })
+                                        HistoryScreen(onBack = { currentScreen = "advisor" })
                                     }
                                 }
                             }

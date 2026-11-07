@@ -137,7 +137,7 @@ fun AuthScreen(
 
             // App Branding Name
             Text(
-                text = "Plantopedia",
+                text = stringResource(id = R.string.app_name),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = PrimaryGreen

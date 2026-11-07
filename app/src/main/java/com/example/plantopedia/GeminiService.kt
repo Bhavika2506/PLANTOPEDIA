@@ -41,7 +41,7 @@ object GeminiService {
                 // =====================================================
 
                 val prompt = """
-                    You are Plantopedia, an AI agricultural advisor.
+                    You are AgroMedic, an AI agricultural advisor.
 
                     Your job is to help farmers and plant owners understand
                     crop diseases, plant symptoms, treatment, prevention,

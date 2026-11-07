@@ -4,9 +4,23 @@
     <!-- Navigation -->
     <string name="nav_home">Home</string>
     <string name="nav_scan">Scan</string>
+    <string name="nav_community">Community</string>
     <string name="nav_market">Market</string>
     <string name="nav_history">History</string>
     <string name="nav_advisor">Advisor</string>
+
+    <!-- Community Screen -->
+    <string name="community_title">Farmer Community</string>
+    <string name="community_subtitle">Connect, discuss, and learn from farmers</string>
+    <string name="community_ask_prompt">Ask a question or share farming insights...</string>
+    <string name="community_post_button">Post</string>
+    <string name="community_filter_all">All</string>
+    <string name="community_filter_crops">Crops</string>
+    <string name="community_filter_diseases">Diseases</string>
+    <string name="community_filter_organic">Organic</string>
+    <string name="community_filter_tips">Tips</string>
+    <string name="community_likes">%1$d likes</string>
+    <string name="community_replies">%1$d replies</string>
 
     <!-- Auth / Registration / Login -->
     <string name="login_title">Welcome Back</string>

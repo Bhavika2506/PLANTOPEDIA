@@ -47,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,14 +64,20 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AdvisorScreen(
-    initialShowHistory: Boolean = false
+    initialShowHistory: Boolean = false,
+    onHistoryClick: (() -> Unit)? = null
 ) {
+    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     var showHistoryView by remember { mutableStateOf(initialShowHistory) }
     var question by remember { mutableStateOf("") }
     var advice by remember { mutableStateOf<String?>(null) }
     var isLoading by remember { mutableStateOf(false) }
+
+    val scanCount = remember(context, showHistoryView) {
+        ScanHistory.getAll(context).size
+    }
 
     val q1 = stringResource(id = R.string.question_1)
     val q2 = stringResource(id = R.string.question_2)
@@ -147,7 +154,13 @@ fun AdvisorScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(16.dp))
-                            .clickable { showHistoryView = true },
+                            .clickable {
+                                if (onHistoryClick != null) {
+                                    onHistoryClick()
+                                } else {
+                                    showHistoryView = true
+                                }
+                            },
                         shape = RoundedCornerShape(16.dp),
                         color = CardBackground,
                         border = BorderStroke(1.dp, BorderColor)
@@ -166,7 +179,7 @@ fun AdvisorScreen(
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.History,
-                                        contentDescription = null,
+                                        contentDescription = stringResource(R.string.view_scan_history),
                                         tint = PrimaryGreen,
                                         modifier = Modifier.size(22.dp)
                                     )
@@ -176,12 +189,32 @@ fun AdvisorScreen(
                             Spacer(modifier = Modifier.size(12.dp))
 
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = stringResource(R.string.view_scan_history),
-                                    style = MaterialTheme.typography.titleSmall,
-                                    fontWeight = FontWeight.Bold,
-                                    color = PrimaryText
-                                )
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.view_scan_history),
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = PrimaryText
+                                    )
+
+                                    if (scanCount > 0) {
+                                        Surface(
+                                            shape = RoundedCornerShape(10.dp),
+                                            color = LightGreenTint
+                                        ) {
+                                            Text(
+                                                text = "$scanCount",
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                fontWeight = FontWeight.Bold,
+                                                color = PrimaryGreen
+                                            )
+                                        }
+                                    }
+                                }
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
                                     text = stringResource(R.string.view_scan_history_desc),
