@@ -72,7 +72,9 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryScreen() {
+fun HistoryScreen(
+    onBack: (() -> Unit)? = null
+) {
     val context = LocalContext.current
 
     var historyItems by remember {
@@ -112,22 +114,35 @@ fun HistoryScreen() {
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Surface(
-                        shape = CircleShape,
-                        color = LightGreenTint,
-                        modifier = Modifier.size(36.dp)
-                    ) {
-                        Box(contentAlignment = Alignment.Center) {
+                    if (onBack != null) {
+                        IconButton(
+                            onClick = onBack,
+                            modifier = Modifier.size(36.dp)
+                        ) {
                             Icon(
-                                imageVector = Icons.Default.History,
-                                contentDescription = null,
-                                tint = PrimaryGreen,
-                                modifier = Modifier.size(20.dp)
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Back",
+                                tint = PrimaryGreen
                             )
                         }
+                        Spacer(modifier = Modifier.size(8.dp))
+                    } else {
+                        Surface(
+                            shape = CircleShape,
+                            color = LightGreenTint,
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    imageVector = Icons.Default.History,
+                                    contentDescription = null,
+                                    tint = PrimaryGreen,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.size(10.dp))
                     }
-
-                    Spacer(modifier = Modifier.size(10.dp))
 
                     Column {
                         Text(

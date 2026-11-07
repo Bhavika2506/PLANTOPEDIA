@@ -4,6 +4,7 @@
     <!-- Navigation -->
     <string name="nav_home">Home</string>
     <string name="nav_scan">Scan</string>
+    <string name="nav_market">Market</string>
     <string name="nav_history">History</string>
     <string name="nav_advisor">Advisor</string>
 
@@ -125,4 +126,21 @@
     <string name="crop_selection_title">Select Crops You Grow</string>
     <string name="crop_selection_subtitle">Select the crops you grow to manage them easily.</string>
     <string name="save_crops">Save Crops</string>
+
+    <!-- Market Screen -->
+    <string name="market_title">Agro Market</string>
+    <string name="market_subtitle">Daily Mandi crop prices &amp; insights</string>
+    <string name="market_search_placeholder">Search crops or mandis...</string>
+    <string name="market_all_crops">All Crops</string>
+    <string name="market_price_per_quintal">₹%1$d / qtl</string>
+    <string name="market_updated_today">Updated today</string>
+    <string name="market_mandi_prefix">Mandi: %1$s</string>
+    <string name="market_state_prefix">%1$s</string>
+    <string name="market_trend_up">▲ +%1$.1f%%</string>
+    <string name="market_trend_down">▼ -%1$.1f%%</string>
+    <string name="market_trend_steady">● Steady</string>
+    <string name="market_insights_title">Market Tip</string>
+    <string name="market_insights_desc">Prices of pulses and oilseeds are anticipated to hold steady this week due to steady APMC arrivals.</string>
+    <string name="view_scan_history">View Scan History</string>
+    <string name="view_scan_history_desc">Access your previous plant scans and diagnosis records</string>
 </resources>

@@ -4,6 +4,7 @@
     <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कॅन</string>
+    <string name="nav_market">बाजार</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_advisor">सल्लागार</string>
 
@@ -125,4 +126,21 @@
     <string name="crop_selection_title">तुम्ही उगवणारी पिके निवडा</string>
     <string name="crop_selection_subtitle">सहज व्यवस्थापित करण्यासाठी तुमची पिके निवडा.</string>
     <string name="save_crops">पिके जतन करा</string>
+
+    <!-- Market Screen -->
+    <string name="market_title">कृषी बाजार</string>
+    <string name="market_subtitle">दैनिक कृषी बाजार भाव आणि माहिती</string>
+    <string name="market_search_placeholder">पिके किंवा बाजार शोधा...</string>
+    <string name="market_all_crops">सर्व पिके</string>
+    <string name="market_price_per_quintal">₹%1$d / क्विंटल</string>
+    <string name="market_updated_today">आजचे भाव</string>
+    <string name="market_mandi_prefix">बाजार: %1$s</string>
+    <string name="market_state_prefix">%1$s</string>
+    <string name="market_trend_up">▲ +%1$.1f%%</string>
+    <string name="market_trend_down">▼ -%1$.1f%%</string>
+    <string name="market_trend_steady">● स्थिर</string>
+    <string name="market_insights_title">बाजार सल्ला</string>
+    <string name="market_insights_desc">बाजार आवक स्थिर असल्याने या आठवड्यात कडधान्ये आणि तेलबियांचे भाव स्थिर राहण्याचा अंदाज आहे.</string>
+    <string name="view_scan_history">स्कॅन इतिहास पहा</string>
+    <string name="view_scan_history_desc">तुमचे मागील वनस्पती स्कॅन आणि रोग निदान रेकॉर्ड पहा</string>
 </resources>

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Eco
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material3.Button
@@ -60,9 +62,12 @@ import com.example.plantopedia.ui.theme.SecondaryText
 import kotlinx.coroutines.launch
 
 @Composable
-fun AdvisorScreen() {
+fun AdvisorScreen(
+    initialShowHistory: Boolean = false
+) {
     val coroutineScope = rememberCoroutineScope()
 
+    var showHistoryView by remember { mutableStateOf(initialShowHistory) }
     var question by remember { mutableStateOf("") }
     var advice by remember { mutableStateOf<String?>(null) }
     var isLoading by remember { mutableStateOf(false) }
@@ -71,6 +76,12 @@ fun AdvisorScreen() {
     val q2 = stringResource(id = R.string.question_2)
     val q3 = stringResource(id = R.string.question_3)
     val q4 = stringResource(id = R.string.question_4)
+
+    if (showHistoryView) {
+        BackHandler { showHistoryView = false }
+        HistoryScreen(onBack = { showHistoryView = false })
+        return
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -130,6 +141,65 @@ fun AdvisorScreen() {
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
+                // SCAN HISTORY ENTRY CARD INSIDE ADVISOR
+                item {
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                            .clickable { showHistoryView = true },
+                        shape = RoundedCornerShape(16.dp),
+                        color = CardBackground,
+                        border = BorderStroke(1.dp, BorderColor)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(14.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Surface(
+                                shape = CircleShape,
+                                color = LightGreenTint,
+                                modifier = Modifier.size(42.dp)
+                            ) {
+                                Box(contentAlignment = Alignment.Center) {
+                                    Icon(
+                                        imageVector = Icons.Default.History,
+                                        contentDescription = null,
+                                        tint = PrimaryGreen,
+                                        modifier = Modifier.size(22.dp)
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.size(12.dp))
+
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = stringResource(R.string.view_scan_history),
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = PrimaryText
+                                )
+                                Spacer(modifier = Modifier.height(2.dp))
+                                Text(
+                                    text = stringResource(R.string.view_scan_history_desc),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = SecondaryText
+                                )
+                            }
+
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                                contentDescription = null,
+                                tint = PrimaryGreen,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+                }
+
                 // SUGGESTED QUESTIONS HEADER
                 item {
                     Text(
