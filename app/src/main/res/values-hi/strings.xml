@@ -4,6 +4,7 @@
     <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कैन</string>
+    <string name="nav_market">बाजार</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_advisor">सलाहकार</string>
 
@@ -125,4 +126,21 @@
     <string name="crop_selection_title">अपनी उगाने वाली फसलें चुनें</string>
     <string name="crop_selection_subtitle">आसानी से प्रबंधित करने के लिए अपनी उगाने वाली फसलें चुनें।</string>
     <string name="save_crops">फसलें सहेजें</string>
+
+    <!-- Market Screen -->
+    <string name="market_title">कृषि बाजार</string>
+    <string name="market_subtitle">दैनिक मंडी फसल भाव और जानकारी</string>
+    <string name="market_search_placeholder">फसलें या मंडियां खोजें...</string>
+    <string name="market_all_crops">सभी फसलें</string>
+    <string name="market_price_per_quintal">₹%1$d / क्विंटल</string>
+    <string name="market_updated_today">आज का भाव</string>
+    <string name="market_mandi_prefix">मंडी: %1$s</string>
+    <string name="market_state_prefix">%1$s</string>
+    <string name="market_trend_up">▲ +%1$.1f%%</string>
+    <string name="market_trend_down">▼ -%1$.1f%%</string>
+    <string name="market_trend_steady">● स्थिर</string>
+    <string name="market_insights_title">बाजार सलाह</string>
+    <string name="market_insights_desc">मंडी आवक स्थिर रहने के कारण इस सप्ताह दलहन व तिलहन की कीमतों में स्थिरता की उम्मीद है।</string>
+    <string name="view_scan_history">स्कैन इतिहास देखें</string>
+    <string name="view_scan_history_desc">अपने पिछले पौधों के स्कैन और रोग निदान रिकॉर्ड देखें</string>
 </resources>

@@ -6,24 +6,31 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
@@ -73,6 +80,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         currentLangCode = UserManager.getLanguage(this)
 
         val permissionGranted =
@@ -137,7 +145,8 @@ class MainActivity : ComponentActivity() {
                                         NavigationBar(
                                             containerColor = CardBackground,
                                             tonalElevation = 0.dp,
-                                            modifier = Modifier.height(68.dp)
+                                            windowInsets = NavigationBarDefaults.windowInsets,
+                                            modifier = Modifier.fillMaxWidth()
                                         ) {
                                             NavigationBarItem(
                                                 selected = currentScreen == "home",
@@ -192,20 +201,20 @@ class MainActivity : ComponentActivity() {
                                             )
 
                                             NavigationBarItem(
-                                                selected = currentScreen == "history",
-                                                onClick = { currentScreen = "history" },
+                                                selected = currentScreen == "market",
+                                                onClick = { currentScreen = "market" },
                                                 icon = {
                                                     Icon(
-                                                        imageVector = Icons.Default.History,
-                                                        contentDescription = stringResource(R.string.nav_history),
+                                                        imageVector = Icons.Default.Storefront,
+                                                        contentDescription = stringResource(R.string.nav_market),
                                                         modifier = Modifier.size(24.dp)
                                                     )
                                                 },
                                                 label = {
                                                     Text(
-                                                        text = stringResource(R.string.nav_history),
+                                                        text = stringResource(R.string.nav_market),
                                                         style = MaterialTheme.typography.labelSmall,
-                                                        fontWeight = if (currentScreen == "history") FontWeight.Bold else FontWeight.Medium
+                                                        fontWeight = if (currentScreen == "market") FontWeight.Bold else FontWeight.Medium
                                                     )
                                                 },
                                                 colors = NavigationBarItemDefaults.colors(
@@ -252,7 +261,7 @@ class MainActivity : ComponentActivity() {
                                     HomeScreen(
                                         cameraPermissionGranted = cameraPermissionGranted,
                                         onScanClick = { currentScreen = "camera" },
-                                        onHistoryClick = { currentScreen = "history" },
+                                        onHistoryClick = { currentScreen = "advisor_history" },
                                         onLanguageChanged = { langCode ->
                                             updateLanguage(langCode)
                                         },
@@ -269,13 +278,13 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
 
-                                "history" -> {
+                                "market" -> {
                                     Box(
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)
                                     ) {
-                                        HistoryScreen()
+                                        MarketScreen()
                                     }
                                 }
 
@@ -286,6 +295,17 @@ class MainActivity : ComponentActivity() {
                                             .padding(innerPadding)
                                     ) {
                                         AdvisorScreen()
+                                    }
+                                }
+
+                                "advisor_history" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        HistoryScreen(onBack = { currentScreen = "home" })
                                     }
                                 }
                             }
