@@ -182,7 +182,7 @@ fun HomeScreen(
 
                         Column {
                             Text(
-                                text = "Plantopedia",
+                                text = stringResource(id = R.string.app_name),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
                                 color = PrimaryGreen
@@ -472,7 +472,7 @@ fun CircularCropItem(
 }
 
 /**
- * Compact, practical farming weather card.
+ * Improved, farmer-friendly agricultural weather card.
  */
 @Composable
 fun CompactWeatherCard() {
@@ -482,93 +482,155 @@ fun CompactWeatherCard() {
         color = CardBackground,
         border = BorderStroke(1.dp, BorderColor)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+        Column(
+            modifier = Modifier.padding(14.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
+            // Top Row: Farm location and condition
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
-                    shape = RoundedCornerShape(10.dp),
-                    color = LightGreenTint,
-                    modifier = Modifier.size(42.dp)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            imageVector = Icons.Default.Cloud,
-                            contentDescription = null,
-                            tint = PrimaryGreen,
-                            modifier = Modifier.size(24.dp)
-                        )
+                    Surface(
+                        shape = CircleShape,
+                        color = LightGreenTint,
+                        modifier = Modifier.size(24.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = Icons.Default.Cloud,
+                                contentDescription = null,
+                                tint = PrimaryGreen,
+                                modifier = Modifier.size(14.dp)
+                            )
+                        }
                     }
+
+                    Text(
+                        text = stringResource(R.string.weather_location),
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = SecondaryText
+                    )
                 }
 
-                Column {
+                Text(
+                    text = stringResource(R.string.weather_condition),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Medium,
+                    color = PrimaryGreen
+                )
+            }
+
+            // Middle Section: Temperature & Key Metrics
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
                     Text(
-                        text = stringResource(R.string.weather_title),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = SecondaryText,
-                        fontWeight = FontWeight.Medium
+                        text = stringResource(R.string.weather_temp),
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = PrimaryGreen
                     )
                     Text(
                         text = stringResource(R.string.weather_condition),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = PrimaryText
+                        style = MaterialTheme.typography.bodySmall,
+                        color = SecondaryText,
+                        modifier = Modifier.padding(bottom = 4.dp)
                     )
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Humidity Chip
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = AppBackground,
+                        border = BorderStroke(1.dp, BorderColor)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.WaterDrop,
+                                contentDescription = null,
+                                tint = SecondaryGreen,
+                                modifier = Modifier.size(12.dp)
+                            )
+                            Text(
+                                text = stringResource(R.string.weather_humidity),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = PrimaryText
+                            )
+                        }
+                    }
+
+                    // Wind Chip
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = AppBackground,
+                        border = BorderStroke(1.dp, BorderColor)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Air,
+                                contentDescription = null,
+                                tint = SecondaryGreen,
+                                modifier = Modifier.size(12.dp)
+                            )
+                            Text(
+                                text = stringResource(R.string.weather_wind),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = PrimaryText
+                            )
+                        }
+                    }
                 }
             }
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(14.dp)
+            // Bottom Agricultural Advisory Banner
+            Surface(
+                shape = RoundedCornerShape(10.dp),
+                color = LightGreenTint,
+                border = BorderStroke(1.dp, BorderColor),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = stringResource(R.string.weather_temp),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = PrimaryGreen
-                )
-
-                Column(horizontalAlignment = Alignment.End) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.WaterDrop,
-                            contentDescription = null,
-                            tint = SecondaryGreen,
-                            modifier = Modifier.size(12.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.weather_humidity),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = SecondaryText
-                        )
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Air,
-                            contentDescription = null,
-                            tint = SecondaryGreen,
-                            modifier = Modifier.size(12.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.weather_wind),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = SecondaryText
-                        )
-                    }
+                Row(
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        tint = PrimaryGreen,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.weather_spray_advice),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Medium,
+                        color = PrimaryGreen
+                    )
                 }
             }
         }

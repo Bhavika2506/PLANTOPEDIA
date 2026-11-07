@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AgroMedic</string>
+    <string name="app_name">Agromedic</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>
@@ -42,10 +42,13 @@
     <string name="take_picture">Take a picture</string>
     <string name="scan_crop">Take a picture</string>
     <string name="weather_title">Today\'s Farming Weather</string>
+    <string name="weather_location">My Farm • Today</string>
     <string name="weather_condition">Partly Cloudy</string>
     <string name="weather_temp">28°C</string>
     <string name="weather_humidity">65% Humidity</string>
     <string name="weather_wind">12 km/h Wind</string>
+    <string name="weather_precipitation">0 mm Rain</string>
+    <string name="weather_spray_advice">Optimal for spraying • No rain expected</string>
     <string name="step_take_photo">1. Take a photo of affected leaf</string>
     <string name="step_get_diagnosis">2. See diagnosis and treatment</string>
     <string name="add_crop">Add Crop</string>

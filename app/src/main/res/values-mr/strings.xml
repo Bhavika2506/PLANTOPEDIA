@@ -42,10 +42,13 @@
     <string name="take_picture">फोटो काढा</string>
     <string name="scan_crop">फोटो काढा</string>
     <string name="weather_title">आजचे शेतीचे हवामान</string>
+    <string name="weather_location">माझे शेत • आज</string>
     <string name="weather_condition">अंशतः ढगाळ</string>
     <string name="weather_temp">28°C</string>
     <string name="weather_humidity">65% आर्द्रता</string>
     <string name="weather_wind">12 किमी/तास वारा</string>
+    <string name="weather_precipitation">0 मिमी पाऊस</string>
+    <string name="weather_spray_advice">फवारणीसाठी अनुकूल • पावसाची शक्यता नाही</string>
     <string name="step_take_photo">1. बाधित पानाचा फोटो घ्या</string>
     <string name="step_get_diagnosis">2. रोग निदान व उपाय पहा</string>
     <string name="add_crop">पीक जोडा</string>

@@ -42,10 +42,13 @@
     <string name="take_picture">तस्वीर लें</string>
     <string name="scan_crop">तस्वीर लें</string>
     <string name="weather_title">आज का कृषि मौसम</string>
+    <string name="weather_location">मेरा खेत • आज</string>
     <string name="weather_condition">आंशिक रूप से बादल</string>
     <string name="weather_temp">28°C</string>
     <string name="weather_humidity">65% नमी</string>
     <string name="weather_wind">12 किमी/घं हवा</string>
+    <string name="weather_precipitation">0 मिमी बारिश</string>
+    <string name="weather_spray_advice">छिड़काव के लिए अनुकूल • बारिश की संभावना नहीं</string>
     <string name="step_take_photo">1. प्रभावित पत्ती की तस्वीर लें</string>
     <string name="step_get_diagnosis">2. निदान और उपचार देखें</string>
     <string name="add_crop">फसल जोड़ें</string>
