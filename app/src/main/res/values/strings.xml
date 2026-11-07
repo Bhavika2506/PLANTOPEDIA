@@ -48,6 +48,12 @@
     <string name="weather_wind">12 km/h Wind</string>
     <string name="step_take_photo">1. Take a photo of affected leaf</string>
     <string name="step_get_diagnosis">2. See diagnosis and treatment</string>
+    <string name="step_take_picture">Take a Picture</string>
+    <string name="step_see_diagnosis">See Diagnosis</string>
+    <string name="step_get_treatment">Get Treatment</string>
+    <string name="spraying_conditions">Spraying conditions</string>
+    <string name="spraying_optimal">Optimal</string>
+    <string name="spraying_rest_of_day">Rest of the day</string>
     <string name="add_crop">Add Crop</string>
     <string name="camera_ready">Camera ready ✓</string>
     <string name="camera_permission_required">Camera permission required</string>

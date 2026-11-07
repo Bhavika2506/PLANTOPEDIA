@@ -48,6 +48,12 @@
     <string name="weather_wind">12 किमी/घं हवा</string>
     <string name="step_take_photo">1. प्रभावित पत्ती की तस्वीर लें</string>
     <string name="step_get_diagnosis">2. निदान और उपचार देखें</string>
+    <string name="step_take_picture">तस्वीर लें</string>
+    <string name="step_see_diagnosis">निदान देखें</string>
+    <string name="step_get_treatment">उपचार प्राप्त करें</string>
+    <string name="spraying_conditions">छिड़काव की स्थिति</string>
+    <string name="spraying_optimal">अनुकूल</string>
+    <string name="spraying_rest_of_day">दिन भर</string>
     <string name="add_crop">फसल जोड़ें</string>
     <string name="camera_ready">कैमरा तैयार है ✓</string>
     <string name="camera_permission_required">कैमरा अनुमति आवश्यक है</string>

@@ -24,7 +24,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Air
@@ -38,6 +41,16 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.WaterDrop
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -103,6 +116,25 @@ fun getCropDisplayName(cropId: String, context: Context): String {
         "mr" -> option.nameMr
         else -> option.nameEn
     }
+}
+
+fun formatCurrentDate(lang: String, date: Date = Date()): String {
+    val locale = when (lang) {
+        "hi" -> Locale.forLanguageTag("hi-IN")
+        "mr" -> Locale.forLanguageTag("mr-IN")
+        else -> Locale.ENGLISH
+    }
+    return try {
+        val formatter = SimpleDateFormat("d MMM", locale)
+        formatter.format(date)
+    } catch (_: Exception) {
+        SimpleDateFormat("d MMM", Locale.ENGLISH).format(date)
+    }
+}
+
+fun formatCurrentDate(context: Context, date: Date = Date()): String {
+    val lang = UserManager.getLanguage(context)
+    return formatCurrentDate(lang, date)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -286,11 +318,8 @@ fun HomeScreen(
                     onManageCropsClick = { showCropDialog = true }
                 )
 
-                // COMPACT WEATHER SECTION
-                CompactWeatherCard()
-
-                // PRIMARY PLANT SCANNING SECTION (Inspired by Plantix Hero Card)
-                PlantScanningHeroCard(
+                // COMBINED WEATHER AND CHECK MY PLANT SECTION (Plantix inspired unified container)
+                CombinedWeatherAndCheckPlantSection(
                     onScanClick = onScanClick
                 )
 
@@ -472,101 +501,157 @@ fun CircularCropItem(
 }
 
 /**
- * Compact, practical farming weather card.
+ * Combined Weather and Check My Plant unified container.
+ * Inspired by Plantix layout: compact weather & spraying conditions at top,
+ * clean 3-step visual diagnosis diagram in the middle, and full-width CTA button below.
  */
 @Composable
-fun CompactWeatherCard() {
+fun CombinedWeatherAndCheckPlantSection(
+    onScanClick: () -> Unit
+) {
+    val context = LocalContext.current
+    val currentDateStr = remember(context) {
+        formatCurrentDate(context)
+    }
+
+    // Unified container with soft mint background
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = CardBackground,
+        shape = RoundedCornerShape(20.dp),
+        color = Color(0xFFE8F3EC), // Soft mint green tint matching the theme
         border = BorderStroke(1.dp, BorderColor)
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(14.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
+            // Top Section: Compact Weather & Spraying Conditions
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                // Weather Pill: Date, Temperature, Weather icon
                 Surface(
-                    shape = RoundedCornerShape(10.dp),
-                    color = LightGreenTint,
-                    modifier = Modifier.size(42.dp)
+                    modifier = Modifier.weight(1.1f),
+                    shape = RoundedCornerShape(16.dp),
+                    color = CardBackground,
+                    border = BorderStroke(1.dp, BorderColor)
                 ) {
-                    Box(contentAlignment = Alignment.Center) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column {
+                            Text(
+                                text = currentDateStr,
+                                style = MaterialTheme.typography.labelMedium,
+                                color = SecondaryText,
+                                fontWeight = FontWeight.Medium
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = stringResource(R.string.weather_temp),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimaryText
+                            )
+                        }
+
                         Icon(
                             imageVector = Icons.Default.Cloud,
-                            contentDescription = null,
-                            tint = PrimaryGreen,
-                            modifier = Modifier.size(24.dp)
+                            contentDescription = stringResource(R.string.weather_condition),
+                            tint = Color(0xFF8FA7B2),
+                            modifier = Modifier.size(28.dp)
                         )
                     }
                 }
 
-                Column {
-                    Text(
-                        text = stringResource(R.string.weather_title),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = SecondaryText,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = stringResource(R.string.weather_condition),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = PrimaryText
-                    )
+                // Spraying Conditions Pill
+                Surface(
+                    modifier = Modifier.weight(1.5f),
+                    shape = RoundedCornerShape(16.dp),
+                    color = CardBackground,
+                    border = BorderStroke(1.dp, BorderColor)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column {
+                            Text(
+                                text = stringResource(R.string.spraying_conditions),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = SecondaryText,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = stringResource(R.string.spraying_optimal),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = PrimaryText
+                            )
+                        }
+
+                        Text(
+                            text = stringResource(R.string.spraying_rest_of_day),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = SecondaryText,
+                            textAlign = TextAlign.End,
+                            maxLines = 2
+                        )
+                    }
                 }
             }
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(14.dp)
+            // Bottom Section: White Card with 3-Step Diagram and CTA Button
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                color = CardBackground,
+                border = BorderStroke(1.dp, BorderColor)
             ) {
-                Text(
-                    text = stringResource(R.string.weather_temp),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = PrimaryGreen
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Three-step visual process diagram
+                    ProcessDiagramRow(
+                        modifier = Modifier.fillMaxWidth()
+                    )
 
-                Column(horizontalAlignment = Alignment.End) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.WaterDrop,
-                            contentDescription = null,
-                            tint = SecondaryGreen,
-                            modifier = Modifier.size(12.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.weather_humidity),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = SecondaryText
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(18.dp))
 
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    // Prominent full-width button
+                    Button(
+                        onClick = onScanClick,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(26.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = PrimaryGreen,
+                            contentColor = Color.White
+                        ),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Air,
-                            contentDescription = null,
-                            tint = SecondaryGreen,
-                            modifier = Modifier.size(12.dp)
-                        )
                         Text(
-                            text = stringResource(R.string.weather_wind),
-                            style = MaterialTheme.typography.labelSmall,
-                            color = SecondaryText
+                            text = stringResource(id = R.string.check_my_plant),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
                         )
                     }
                 }
@@ -576,148 +661,339 @@ fun CompactWeatherCard() {
 }
 
 /**
- * Prominent Plant Scanning Hero Section.
- * Inspired by Plantix simplicity: intuitive 2-step cues and clear primary action.
+ * Visual three-step diagram connecting Step 1, Step 2, and Step 3 with right arrows (→).
  */
 @Composable
-fun PlantScanningHeroCard(
-    onScanClick: () -> Unit
+fun ProcessDiagramRow(
+    modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(18.dp),
-        color = CardBackground,
-        border = BorderStroke(1.dp, BorderColor)
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier.padding(18.dp)
+        // Step 1: Take a Picture
+        DiagramStepItem(
+            modifier = Modifier.weight(1f),
+            illustration = { PhoneScanningIllustration(modifier = Modifier.size(56.dp)) },
+            label = stringResource(id = R.string.step_take_picture)
+        )
+
+        // Arrow 1
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+            contentDescription = null,
+            tint = BorderColor,
+            modifier = Modifier
+                .padding(horizontal = 2.dp)
+                .size(18.dp)
+        )
+
+        // Step 2: See Diagnosis
+        DiagramStepItem(
+            modifier = Modifier.weight(1f),
+            illustration = { PlantDiagnosisIllustration(modifier = Modifier.size(56.dp)) },
+            label = stringResource(id = R.string.step_see_diagnosis)
+        )
+
+        // Arrow 2
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+            contentDescription = null,
+            tint = BorderColor,
+            modifier = Modifier
+                .padding(horizontal = 2.dp)
+                .size(18.dp)
+        )
+
+        // Step 3: Get Treatment
+        DiagramStepItem(
+            modifier = Modifier.weight(1f),
+            illustration = { SprayTreatmentIllustration(modifier = Modifier.size(56.dp)) },
+            label = stringResource(id = R.string.step_get_treatment)
+        )
+    }
+}
+
+@Composable
+fun DiagramStepItem(
+    illustration: @Composable () -> Unit,
+    label: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier.size(58.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = LightGreenTint,
-                    modifier = Modifier.size(46.dp)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            imageVector = Icons.Default.PhotoCamera,
-                            contentDescription = null,
-                            tint = PrimaryGreen,
-                            modifier = Modifier.size(26.dp)
-                        )
-                    }
-                }
-
-                Column {
-                    Text(
-                        text = stringResource(id = R.string.check_my_plant),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = PrimaryText
-                    )
-                    Text(
-                        text = stringResource(id = R.string.home_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = SecondaryText
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(14.dp))
-
-            Text(
-                text = stringResource(id = R.string.check_plant_desc),
-                style = MaterialTheme.typography.bodyMedium,
-                color = PrimaryText,
-                lineHeight = 20.sp
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // 2-Step Cues
-            Surface(
-                shape = RoundedCornerShape(12.dp),
-                color = AppBackground,
-                border = BorderStroke(1.dp, BorderColor),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.CheckCircle,
-                            contentDescription = null,
-                            tint = PrimaryGreen,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.step_take_photo),
-                            style = MaterialTheme.typography.bodySmall,
-                            fontWeight = FontWeight.Medium,
-                            color = PrimaryText
-                        )
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.CheckCircle,
-                            contentDescription = null,
-                            tint = PrimaryGreen,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Text(
-                            text = stringResource(R.string.step_get_diagnosis),
-                            style = MaterialTheme.typography.bodySmall,
-                            fontWeight = FontWeight.Medium,
-                            color = PrimaryText
-                        )
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Prominent Full-Width CTA Button
-            Button(
-                onClick = onScanClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 50.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = PrimaryGreen,
-                    contentColor = Color.White
-                ),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.PhotoCamera,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.take_picture),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
+            illustration()
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodySmall,
+            fontWeight = FontWeight.Medium,
+            color = PrimaryText,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            minLines = 2,
+            lineHeight = 15.sp
+        )
+    }
+}
+
+/**
+ * Clean illustration of a smartphone scanning a plant leaf with crop/reticle corners.
+ */
+@Composable
+fun PhoneScanningIllustration(
+    modifier: Modifier = Modifier
+) {
+    Canvas(modifier = modifier) {
+        val w = size.width
+        val h = size.height
+
+        // Phone body
+        val phoneLeft = w * 0.22f
+        val phoneTop = h * 0.08f
+        val phoneWidth = w * 0.56f
+        val phoneHeight = h * 0.84f
+        val phoneCorner = 8.dp.toPx()
+
+        drawRoundRect(
+            color = Color(0xFF2C3E50),
+            topLeft = Offset(phoneLeft, phoneTop),
+            size = Size(phoneWidth, phoneHeight),
+            cornerRadius = CornerRadius(phoneCorner, phoneCorner),
+            style = Stroke(width = 3.dp.toPx(), cap = StrokeCap.Round)
+        )
+
+        // Screen area
+        drawRoundRect(
+            color = Color(0xFFF7FAF8),
+            topLeft = Offset(phoneLeft + 4.dp.toPx(), phoneTop + 6.dp.toPx()),
+            size = Size(phoneWidth - 8.dp.toPx(), phoneHeight - 12.dp.toPx()),
+            cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
+            style = Fill
+        )
+
+        // Leaf inside screen
+        val stemPath = Path().apply {
+            moveTo(w * 0.5f, h * 0.72f)
+            quadraticTo(w * 0.5f, h * 0.45f, w * 0.5f, h * 0.35f)
+        }
+        drawPath(
+            path = stemPath,
+            color = Color(0xFF388E3C),
+            style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round)
+        )
+
+        // Top Leaf
+        drawOval(
+            color = Color(0xFF4CAF50),
+            topLeft = Offset(w * 0.44f, h * 0.26f),
+            size = Size(w * 0.12f, h * 0.16f)
+        )
+
+        // Left Leaf
+        val leftLeaf = Path().apply {
+            moveTo(w * 0.5f, h * 0.48f)
+            quadraticTo(w * 0.36f, h * 0.42f, w * 0.38f, h * 0.36f)
+            quadraticTo(w * 0.46f, h * 0.38f, w * 0.5f, h * 0.48f)
+        }
+        drawPath(path = leftLeaf, color = Color(0xFF43A047), style = Fill)
+
+        // Right Leaf
+        val rightLeaf = Path().apply {
+            moveTo(w * 0.5f, h * 0.52f)
+            quadraticTo(w * 0.64f, h * 0.46f, w * 0.62f, h * 0.40f)
+            quadraticTo(w * 0.54f, h * 0.42f, w * 0.5f, h * 0.52f)
+        }
+        drawPath(path = rightLeaf, color = Color(0xFF43A047), style = Fill)
+
+        // Viewfinder reticle corners (top-left, top-right, bottom-left, bottom-right)
+        val bracketColor = Color(0xFF2E7D32)
+        val bStroke = 1.8.dp.toPx()
+        val bLen = 5.dp.toPx()
+
+        // Top-left
+        drawLine(bracketColor, Offset(w * 0.33f, h * 0.30f), Offset(w * 0.33f + bLen, h * 0.30f), bStroke, StrokeCap.Round)
+        drawLine(bracketColor, Offset(w * 0.33f, h * 0.30f), Offset(w * 0.33f, h * 0.30f + bLen), bStroke, StrokeCap.Round)
+
+        // Top-right
+        drawLine(bracketColor, Offset(w * 0.67f, h * 0.30f), Offset(w * 0.67f - bLen, h * 0.30f), bStroke, StrokeCap.Round)
+        drawLine(bracketColor, Offset(w * 0.67f, h * 0.30f), Offset(w * 0.67f, h * 0.30f + bLen), bStroke, StrokeCap.Round)
+
+        // Bottom-left
+        drawLine(bracketColor, Offset(w * 0.33f, h * 0.68f), Offset(w * 0.33f + bLen, h * 0.68f), bStroke, StrokeCap.Round)
+        drawLine(bracketColor, Offset(w * 0.33f, h * 0.68f), Offset(w * 0.33f, h * 0.68f - bLen), bStroke, StrokeCap.Round)
+
+        // Bottom-right
+        drawLine(bracketColor, Offset(w * 0.67f, h * 0.68f), Offset(w * 0.67f - bLen, h * 0.68f), bStroke, StrokeCap.Round)
+        drawLine(bracketColor, Offset(w * 0.67f, h * 0.68f), Offset(w * 0.67f, h * 0.68f - bLen), bStroke, StrokeCap.Round)
+    }
+}
+
+/**
+ * Clean illustration of a plant with diagnosis check indicator badge.
+ */
+@Composable
+fun PlantDiagnosisIllustration(
+    modifier: Modifier = Modifier
+) {
+    Canvas(modifier = modifier) {
+        val w = size.width
+        val h = size.height
+
+        // Stem
+        drawLine(
+            color = Color(0xFF2E7D32),
+            start = Offset(w * 0.5f, h * 0.88f),
+            end = Offset(w * 0.5f, h * 0.22f),
+            strokeWidth = 3.2.dp.toPx(),
+            cap = StrokeCap.Round
+        )
+
+        // Top central leaf
+        val topLeaf = Path().apply {
+            moveTo(w * 0.5f, h * 0.24f)
+            quadraticTo(w * 0.42f, h * 0.12f, w * 0.5f, h * 0.06f)
+            quadraticTo(w * 0.58f, h * 0.12f, w * 0.5f, h * 0.24f)
+        }
+        drawPath(path = topLeaf, color = Color(0xFF43A047), style = Fill)
+
+        // Upper Left Leaf
+        val upperLeft = Path().apply {
+            moveTo(w * 0.5f, h * 0.36f)
+            quadraticTo(w * 0.30f, h * 0.28f, w * 0.26f, h * 0.18f)
+            quadraticTo(w * 0.40f, h * 0.20f, w * 0.5f, h * 0.36f)
+        }
+        drawPath(path = upperLeft, color = Color(0xFF4CAF50), style = Fill)
+
+        // Upper Right Leaf
+        val upperRight = Path().apply {
+            moveTo(w * 0.5f, h * 0.36f)
+            quadraticTo(w * 0.70f, h * 0.28f, w * 0.74f, h * 0.18f)
+            quadraticTo(w * 0.60f, h * 0.20f, w * 0.5f, h * 0.36f)
+        }
+        drawPath(path = upperRight, color = Color(0xFF4CAF50), style = Fill)
+
+        // Mid Left Leaf
+        val midLeft = Path().apply {
+            moveTo(w * 0.5f, h * 0.54f)
+            quadraticTo(w * 0.24f, h * 0.48f, w * 0.20f, h * 0.38f)
+            quadraticTo(w * 0.36f, h * 0.38f, w * 0.5f, h * 0.54f)
+        }
+        drawPath(path = midLeft, color = Color(0xFF388E3C), style = Fill)
+
+        // Mid Right Leaf
+        val midRight = Path().apply {
+            moveTo(w * 0.5f, h * 0.54f)
+            quadraticTo(w * 0.76f, h * 0.48f, w * 0.80f, h * 0.38f)
+            quadraticTo(w * 0.64f, h * 0.38f, w * 0.5f, h * 0.54f)
+        }
+        drawPath(path = midRight, color = Color(0xFF388E3C), style = Fill)
+
+        // Circular diagnosis check badge on lower right
+        val badgeCenter = Offset(w * 0.68f, h * 0.72f)
+        val badgeRadius = w * 0.20f
+
+        // Badge background
+        drawCircle(
+            color = Color(0xFF1E88E5), // Blue diagnosis check badge matching reference
+            radius = badgeRadius,
+            center = badgeCenter
+        )
+
+        // White checkmark inside badge
+        val checkPath = Path().apply {
+            moveTo(badgeCenter.x - badgeRadius * 0.48f, badgeCenter.y + badgeRadius * 0.02f)
+            lineTo(badgeCenter.x - badgeRadius * 0.12f, badgeCenter.y + badgeRadius * 0.38f)
+            lineTo(badgeCenter.x + badgeRadius * 0.52f, badgeCenter.y - badgeRadius * 0.36f)
+        }
+        drawPath(
+            path = checkPath,
+            color = Color.White,
+            style = Stroke(width = 2.4.dp.toPx(), cap = StrokeCap.Round)
+        )
+    }
+}
+
+/**
+ * Clean illustration of a medicine spray bottle with nozzle and spray droplets.
+ */
+@Composable
+fun SprayTreatmentIllustration(
+    modifier: Modifier = Modifier
+) {
+    Canvas(modifier = modifier) {
+        val w = size.width
+        val h = size.height
+
+        // Spray Bottle Body (purple/violet shade inspired by Plantix reference)
+        val bodyLeft = w * 0.28f
+        val bodyTop = h * 0.42f
+        val bodyWidth = w * 0.42f
+        val bodyHeight = h * 0.50f
+        val bodyRadius = 6.dp.toPx()
+
+        drawRoundRect(
+            color = Color(0xFF8E6FB7),
+            topLeft = Offset(bodyLeft, bodyTop),
+            size = Size(bodyWidth, bodyHeight),
+            cornerRadius = CornerRadius(bodyRadius, bodyRadius),
+            style = Fill
+        )
+
+        // Highlight stripe on bottle
+        drawRoundRect(
+            color = Color(0xFFA58BCB),
+            topLeft = Offset(bodyLeft + 3.dp.toPx(), bodyTop + 4.dp.toPx()),
+            size = Size(bodyWidth * 0.25f, bodyHeight - 8.dp.toPx()),
+            cornerRadius = CornerRadius(3.dp.toPx(), 3.dp.toPx()),
+            style = Fill
+        )
+
+        // Neck
+        drawRect(
+            color = Color(0xFFCBD5E1),
+            topLeft = Offset(w * 0.40f, h * 0.32f),
+            size = Size(w * 0.18f, h * 0.10f),
+            style = Fill
+        )
+
+        // Spray Head
+        val headPath = Path().apply {
+            moveTo(w * 0.22f, h * 0.32f)
+            lineTo(w * 0.30f, h * 0.18f)
+            lineTo(w * 0.62f, h * 0.18f)
+            lineTo(w * 0.64f, h * 0.26f)
+            lineTo(w * 0.56f, h * 0.32f)
+            close()
+        }
+        drawPath(path = headPath, color = Color(0xFF94A3B8), style = Fill)
+
+        // Nozzle tip (extending to the right)
+        drawRect(
+            color = Color(0xFF0D47A1),
+            topLeft = Offset(w * 0.64f, h * 0.20f),
+            size = Size(w * 0.10f, h * 0.07f),
+            style = Fill
+        )
+
+        // Spray droplets (small water spray droplets)
+        val sprayColor = Color(0xFF78909C)
+        drawCircle(color = sprayColor, radius = 1.6.dp.toPx(), center = Offset(w * 0.80f, h * 0.18f))
+        drawCircle(color = sprayColor, radius = 2.0.dp.toPx(), center = Offset(w * 0.86f, h * 0.23f))
+        drawCircle(color = sprayColor, radius = 1.5.dp.toPx(), center = Offset(w * 0.92f, h * 0.21f))
+        drawCircle(color = sprayColor, radius = 1.8.dp.toPx(), center = Offset(w * 0.83f, h * 0.28f))
+        drawCircle(color = sprayColor, radius = 1.4.dp.toPx(), center = Offset(w * 0.90f, h * 0.27f))
     }
 }
 
