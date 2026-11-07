@@ -214,7 +214,7 @@ fun HomeScreen(
 
                         Column {
                             Text(
-                                text = "Plantopedia",
+                                text = stringResource(id = R.string.app_name),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
                                 color = PrimaryGreen

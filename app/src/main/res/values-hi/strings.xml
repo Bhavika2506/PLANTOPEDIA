@@ -4,9 +4,23 @@
     <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कैन</string>
+    <string name="nav_community">समुदाय</string>
     <string name="nav_market">बाजार</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_advisor">सलाहकार</string>
+
+    <!-- Community Screen -->
+    <string name="community_title">किसान समुदाय</string>
+    <string name="community_subtitle">साथी किसानों से जुड़ें, चर्चा करें और सीखें</string>
+    <string name="community_ask_prompt">एक प्रश्न पूछें या खेती के अनुभव साझा करें...</string>
+    <string name="community_post_button">पोस्ट करें</string>
+    <string name="community_filter_all">सभी</string>
+    <string name="community_filter_crops">फसलें</string>
+    <string name="community_filter_diseases">रोग</string>
+    <string name="community_filter_organic">जैविक</string>
+    <string name="community_filter_tips">सुझाव</string>
+    <string name="community_likes">%1$d पसंद</string>
+    <string name="community_replies">%1$d उत्तर</string>
 
     <!-- Auth / Registration / Login -->
     <string name="login_title">वापसी पर स्वागत है</string>

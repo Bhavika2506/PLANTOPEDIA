@@ -53,7 +53,7 @@ class CropDiseaseClassifier(
         diseaseLabels = loadLabels(DISEASE_LABELS)
 
         println("================================")
-        println("Plantopedia AI loaded")
+        println("AgroMedic AI loaded")
         println("Crop labels: $cropLabels")
         println("Disease labels: ${diseaseLabels.size}")
         println("================================")

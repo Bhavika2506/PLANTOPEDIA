@@ -4,9 +4,23 @@
     <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कॅन</string>
+    <string name="nav_community">समुदाय</string>
     <string name="nav_market">बाजार</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_advisor">सल्लागार</string>
+
+    <!-- Community Screen -->
+    <string name="community_title">शेतकरी समुदाय</string>
+    <string name="community_subtitle">शेतकऱ्यांशी जोडा, चर्चा करा आणि शिका</string>
+    <string name="community_ask_prompt">प्रश्न विचारा किंवा शेतीविषयक माहिती शेअर करा...</string>
+    <string name="community_post_button">पोस्ट करा</string>
+    <string name="community_filter_all">सर्व</string>
+    <string name="community_filter_crops">पिके</string>
+    <string name="community_filter_diseases">रोग</string>
+    <string name="community_filter_organic">सेंद्रिय</string>
+    <string name="community_filter_tips">सल्ला</string>
+    <string name="community_likes">%1$d लाईक्स</string>
+    <string name="community_replies">%1$d उत्तरे</string>
 
     <!-- Auth / Registration / Login -->
     <string name="login_title">पुन्हा स्वागत आहे</string>
