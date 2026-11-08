@@ -4,8 +4,23 @@
     <!-- Navigation -->
     <string name="nav_home">Home</string>
     <string name="nav_scan">Scan</string>
+    <string name="nav_community">Community</string>
+    <string name="nav_market">Market</string>
     <string name="nav_history">History</string>
     <string name="nav_advisor">Advisor</string>
+
+    <!-- Community Screen -->
+    <string name="community_title">Farmer Community</string>
+    <string name="community_subtitle">Connect, discuss, and learn from farmers</string>
+    <string name="community_ask_prompt">Ask a question or share farming insights...</string>
+    <string name="community_post_button">Post</string>
+    <string name="community_filter_all">All</string>
+    <string name="community_filter_crops">Crops</string>
+    <string name="community_filter_diseases">Diseases</string>
+    <string name="community_filter_organic">Organic</string>
+    <string name="community_filter_tips">Tips</string>
+    <string name="community_likes">%1$d likes</string>
+    <string name="community_replies">%1$d replies</string>
 
     <!-- Auth / Registration / Login -->
     <string name="login_title">Welcome Back</string>
@@ -38,8 +53,23 @@
     <string name="guest_user">Guest Farmer</string>
     <string name="home_subtitle">Check your plant, protect your crop.</string>
     <string name="check_my_plant">Check My Plant</string>
-    <string name="check_plant_desc">Scan a leaf to identify a possible disease.</string>
-    <string name="scan_crop">Scan Crop</string>
+    <string name="check_plant_desc">Take a clear picture of an affected crop leaf to identify diseases and get actionable treatment.</string>
+    <string name="take_picture">Take a picture</string>
+    <string name="scan_crop">Take a picture</string>
+    <string name="weather_title">Today\'s Farming Weather</string>
+    <string name="weather_condition">Partly Cloudy</string>
+    <string name="weather_temp">28°C</string>
+    <string name="weather_humidity">65% Humidity</string>
+    <string name="weather_wind">12 km/h Wind</string>
+    <string name="step_take_photo">1. Take a photo of affected leaf</string>
+    <string name="step_get_diagnosis">2. See diagnosis and treatment</string>
+    <string name="step_take_picture">Take a Picture</string>
+    <string name="step_see_diagnosis">See Diagnosis</string>
+    <string name="step_get_treatment">Get Treatment</string>
+    <string name="spraying_conditions">Spraying conditions</string>
+    <string name="spraying_optimal">Optimal</string>
+    <string name="spraying_rest_of_day">Rest of the day</string>
+    <string name="add_crop">Add Crop</string>
     <string name="camera_ready">Camera ready ✓</string>
     <string name="camera_permission_required">Camera permission required</string>
     <string name="recent_scans">Recent Scans</string>
@@ -110,4 +140,74 @@
     <string name="crop_selection_title">Select Crops You Grow</string>
     <string name="crop_selection_subtitle">Select the crops you grow to manage them easily.</string>
     <string name="save_crops">Save Crops</string>
+
+    <!-- Market Screen -->
+    <string name="market_title">Agro Market</string>
+    <string name="market_subtitle">Daily Mandi crop prices &amp; insights</string>
+    <string name="market_search_placeholder">Search crops or mandis...</string>
+    <string name="market_all_crops">All Crops</string>
+    <string name="market_price_per_quintal">₹%1$d / qtl</string>
+    <string name="market_updated_today">Updated today</string>
+    <string name="market_mandi_prefix">Mandi: %1$s</string>
+    <string name="market_state_prefix">%1$s</string>
+    <string name="market_trend_up">▲ +%1$.1f%%</string>
+    <string name="market_trend_down">▼ -%1$.1f%%</string>
+    <string name="market_trend_steady">● Steady</string>
+    <string name="market_insights_title">Market Tip</string>
+    <string name="market_insights_desc">Prices of pulses and oilseeds are anticipated to hold steady this week due to steady APMC arrivals.</string>
+    <string name="view_scan_history">View Scan History</string>
+    <string name="view_scan_history_desc">Access your previous plant scans and diagnosis records</string>
+
+    <!-- Library Section -->
+    <string name="library_title">Library</string>
+    <string name="library_subtitle">Explore crops, diseases, and cultivation practices</string>
+    <string name="library_category_crops">Crops</string>
+    <string name="library_category_pests_diseases">Pests &amp; Diseases</string>
+    <string name="library_category_cultivation_tips">Cultivation Tips</string>
+
+    <string name="crops_screen_title">Crops</string>
+    <string name="crops_screen_desc">Learn about optimal growing conditions, soil requirements, crop companions and rotation for successful cultivation.</string>
+    <string name="search_crops">Search crops...</string>
+    <string name="no_crops_found">No crops match your search.</string>
+
+    <string name="pests_diseases_title">Pests &amp; Diseases</string>
+    <string name="pests_diseases_desc">Identify potential pests and diseases by growth stage and apply proactive management.</string>
+    <string name="select_crop_label">Selected Crop:</string>
+    <string name="all_stages">All Stages</string>
+    <string name="stage_seedling">Seedling Stage</string>
+    <string name="stage_vegetative">Vegetative Stage</string>
+    <string name="stage_flowering">Flowering Stage</string>
+    <string name="stage_fruiting">Fruiting Stage</string>
+    <string name="stage_maturity">Maturity Stage</string>
+    <string name="stage_harvesting">Harvesting Stage</string>
+    <string name="pest_badge">Pest</string>
+    <string name="disease_badge">Disease</string>
+
+    <string name="cultivation_tips_title">Cultivation Tips</string>
+    <string name="cultivation_tips_desc">Explore practical guidance for every stage of crop cultivation.</string>
+    <string name="tab_by_task">By Task</string>
+    <string name="tab_by_stage">By Stage</string>
+
+    <string name="crop_overview_heading">Crop Overview</string>
+    <string name="growing_conditions_heading">Growing Conditions</string>
+    <string name="climate_label">Suitable Climate</string>
+    <string name="ideal_temp_label">Ideal Temperature</string>
+    <string name="soil_label">Soil Requirements</string>
+    <string name="soil_ph_label">Soil pH</string>
+    <string name="water_req_label">Water Requirements</string>
+    <string name="sowing_season_label">Sowing Season</string>
+    <string name="duration_label">Growing Duration</string>
+    <string name="fertilizer_heading">Fertilizer &amp; Nutrition</string>
+    <string name="pests_diseases_heading">Common Pests &amp; Diseases</string>
+    <string name="harvesting_heading">Harvesting Information</string>
+    <string name="companion_heading">Companion Crops</string>
+    <string name="rotation_heading">Crop Rotation Recommendations</string>
+
+    <string name="disease_symptoms_heading">Symptoms</string>
+    <string name="disease_causes_heading">Causes</string>
+    <string name="disease_conditions_heading">Conditions Encouraging Disease</string>
+    <string name="disease_prevention_heading">Prevention Methods</string>
+    <string name="disease_treatment_heading">Recommended Treatment</string>
+    <string name="disease_management_heading">General Management Practices</string>
+    <string name="back">Back</string>
 </resources>

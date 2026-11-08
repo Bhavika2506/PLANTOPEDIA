@@ -4,8 +4,23 @@
     <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कैन</string>
+    <string name="nav_community">समुदाय</string>
+    <string name="nav_market">बाजार</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_advisor">सलाहकार</string>
+
+    <!-- Community Screen -->
+    <string name="community_title">किसान समुदाय</string>
+    <string name="community_subtitle">साथी किसानों से जुड़ें, चर्चा करें और सीखें</string>
+    <string name="community_ask_prompt">एक प्रश्न पूछें या खेती के अनुभव साझा करें...</string>
+    <string name="community_post_button">पोस्ट करें</string>
+    <string name="community_filter_all">सभी</string>
+    <string name="community_filter_crops">फसलें</string>
+    <string name="community_filter_diseases">रोग</string>
+    <string name="community_filter_organic">जैविक</string>
+    <string name="community_filter_tips">सुझाव</string>
+    <string name="community_likes">%1$d पसंद</string>
+    <string name="community_replies">%1$d उत्तर</string>
 
     <!-- Auth / Registration / Login -->
     <string name="login_title">वापसी पर स्वागत है</string>
@@ -38,8 +53,23 @@
     <string name="guest_user">अतिथि किसान</string>
     <string name="home_subtitle">अपने पौधे की जांच करें, अपनी फसल की सुरक्षा करें।</string>
     <string name="check_my_plant">मेरे पौधे की जांच करें</string>
-    <string name="check_plant_desc">संभावित बीमारी की पहचान करने के लिए एक पत्ती को स्कैन करें।</string>
-    <string name="scan_crop">फसल स्कैन करें</string>
+    <string name="check_plant_desc">रोग की पहचान और उपचार पाने के लिए प्रभावित पत्ती की तस्वीर लें।</string>
+    <string name="take_picture">तस्वीर लें</string>
+    <string name="scan_crop">तस्वीर लें</string>
+    <string name="weather_title">आज का कृषि मौसम</string>
+    <string name="weather_condition">आंशिक रूप से बादल</string>
+    <string name="weather_temp">28°C</string>
+    <string name="weather_humidity">65% नमी</string>
+    <string name="weather_wind">12 किमी/घं हवा</string>
+    <string name="step_take_photo">1. प्रभावित पत्ती की तस्वीर लें</string>
+    <string name="step_get_diagnosis">2. निदान और उपचार देखें</string>
+    <string name="step_take_picture">तस्वीर लें</string>
+    <string name="step_see_diagnosis">निदान देखें</string>
+    <string name="step_get_treatment">उपचार प्राप्त करें</string>
+    <string name="spraying_conditions">छिड़काव की स्थिति</string>
+    <string name="spraying_optimal">अनुकूल</string>
+    <string name="spraying_rest_of_day">दिन भर</string>
+    <string name="add_crop">फसल जोड़ें</string>
     <string name="camera_ready">कैमरा तैयार है ✓</string>
     <string name="camera_permission_required">कैमरा अनुमति आवश्यक है</string>
     <string name="recent_scans">हाल के स्कैन</string>
@@ -110,4 +140,74 @@
     <string name="crop_selection_title">अपनी उगाने वाली फसलें चुनें</string>
     <string name="crop_selection_subtitle">आसानी से प्रबंधित करने के लिए अपनी उगाने वाली फसलें चुनें।</string>
     <string name="save_crops">फसलें सहेजें</string>
+
+    <!-- Market Screen -->
+    <string name="market_title">कृषि बाजार</string>
+    <string name="market_subtitle">दैनिक मंडी फसल भाव और जानकारी</string>
+    <string name="market_search_placeholder">फसलें या मंडियां खोजें...</string>
+    <string name="market_all_crops">सभी फसलें</string>
+    <string name="market_price_per_quintal">₹%1$d / क्विंटल</string>
+    <string name="market_updated_today">आज का भाव</string>
+    <string name="market_mandi_prefix">मंडी: %1$s</string>
+    <string name="market_state_prefix">%1$s</string>
+    <string name="market_trend_up">▲ +%1$.1f%%</string>
+    <string name="market_trend_down">▼ -%1$.1f%%</string>
+    <string name="market_trend_steady">● स्थिर</string>
+    <string name="market_insights_title">बाजार सलाह</string>
+    <string name="market_insights_desc">मंडी आवक स्थिर रहने के कारण इस सप्ताह दलहन व तिलहन की कीमतों में स्थिरता की उम्मीद है।</string>
+    <string name="view_scan_history">स्कैन इतिहास देखें</string>
+    <string name="view_scan_history_desc">अपने पिछले पौधों के स्कैन और रोग निदान रिकॉर्ड देखें</string>
+
+    <!-- Library Section -->
+    <string name="library_title">लाइब्रेरी</string>
+    <string name="library_subtitle">फसलें, रोग व कीट और खेती के तरीकों की संपूर्ण जानकारी</string>
+    <string name="library_category_crops">फसलें</string>
+    <string name="library_category_pests_diseases">कीट व रोग</string>
+    <string name="library_category_cultivation_tips">खेती के सुझाव</string>
+
+    <string name="crops_screen_title">फसलें</string>
+    <string name="crops_screen_desc">सफल खेती के लिए अनुकूल जलवायु, मिट्टी की आवश्यकताएं, साथी फसलें और फसल चक्र के बारे में जानें।</string>
+    <string name="search_crops">फसल खोजें...</string>
+    <string name="no_crops_found">कोई फसल नहीं मिली।</string>
+
+    <string name="pests_diseases_title">कीट व रोग</string>
+    <string name="pests_diseases_desc">विकास की अवस्था अनुसार कीटों और बीमारियों की पहचान करें और उचित रोकथाम अपनाएं।</string>
+    <string name="select_crop_label">चयनित फसल:</string>
+    <string name="all_stages">सभी अवस्थाएं</string>
+    <string name="stage_seedling">अंकुरण / पौध अवस्था</string>
+    <string name="stage_vegetative">वानस्पतिक वृद्धि अवस्था</string>
+    <string name="stage_flowering">फूल आने की अवस्था</string>
+    <string name="stage_fruiting">फल विकास अवस्था</string>
+    <string name="stage_maturity">परिपक्वता अवस्था</string>
+    <string name="stage_harvesting">कटाई अवस्था</string>
+    <string name="pest_badge">कीट</string>
+    <string name="disease_badge">रोग</string>
+
+    <string name="cultivation_tips_title">खेती के सुझाव</string>
+    <string name="cultivation_tips_desc">फसल उत्पादन के हर चरण के लिए व्यावहारिक और उपयोगी मार्गदर्शन।</string>
+    <string name="tab_by_task">कार्य अनुसार</string>
+    <string name="tab_by_stage">अवस्था अनुसार</string>
+
+    <string name="crop_overview_heading">फसल परिचय</string>
+    <string name="growing_conditions_heading">उगाने की अनुकूल स्थितियां</string>
+    <string name="climate_label">अनुकूल जलवायु</string>
+    <string name="ideal_temp_label">आदर्श तापमान</string>
+    <string name="soil_label">मिट्टी की आवश्यकता</string>
+    <string name="soil_ph_label">मिट्टी का पीएच (pH)</string>
+    <string name="water_req_label">जल आवश्यकता</string>
+    <string name="sowing_season_label">बुवाई का समय</string>
+    <string name="duration_label">फसल अवधि</string>
+    <string name="fertilizer_heading">उर्वरक एवं पोषण प्रबंधन</string>
+    <string name="pests_diseases_heading">प्रमुख कीट एवं रोग</string>
+    <string name="harvesting_heading">कटाई एवं तुड़ाई</string>
+    <string name="companion_heading">साथी एवं अंतःफसलें</string>
+    <string name="rotation_heading">फसल चक्र सिफारिशें</string>
+
+    <string name="disease_symptoms_heading">लक्षण</string>
+    <string name="disease_causes_heading">कारण</string>
+    <string name="disease_conditions_heading">रोग को बढ़ावा देने वाली परिस्थितियां</string>
+    <string name="disease_prevention_heading">रोकथाम के उपाय</string>
+    <string name="disease_treatment_heading">अनुशंसित उपचार</string>
+    <string name="disease_management_heading">सामान्य प्रबंधन पद्धतियां</string>
+    <string name="back">वापस</string>
 </resources>

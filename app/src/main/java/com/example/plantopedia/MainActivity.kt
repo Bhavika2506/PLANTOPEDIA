@@ -6,24 +6,35 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -34,15 +45,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.example.plantopedia.ui.theme.DarkForestGreen
+import com.example.plantopedia.ui.theme.BorderColor
+import com.example.plantopedia.ui.theme.CardBackground
+import com.example.plantopedia.ui.theme.LightGreenTint
 import com.example.plantopedia.ui.theme.PlantopediaTheme
-import com.example.plantopedia.ui.theme.WarmWhiteSurface
+import com.example.plantopedia.ui.theme.PrimaryGreen
+import com.example.plantopedia.ui.theme.PrimaryText
+import com.example.plantopedia.ui.theme.SecondaryText
 
 class MainActivity : ComponentActivity() {
 
@@ -63,6 +80,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         currentLangCode = UserManager.getLanguage(this)
 
         val permissionGranted =
@@ -114,46 +132,141 @@ class MainActivity : ComponentActivity() {
                         var currentScreen by remember {
                             mutableStateOf("home")
                         }
+                        var selectedCropDetailId by remember {
+                            mutableStateOf("")
+                        }
+                        var selectedDiseaseDetailId by remember {
+                            mutableStateOf("")
+                        }
+                        var selectedTipDetailId by remember {
+                            mutableStateOf("")
+                        }
 
                         Scaffold(
                             containerColor = MaterialTheme.colorScheme.background,
                             bottomBar = {
-                                if (currentScreen != "camera") {
-                                    NavigationBar(
-                                        containerColor = DarkForestGreen,
-                                        tonalElevation = 0.dp
+                                val isLibraryDetail = currentScreen in listOf(
+                                    "camera",
+                                    "library_crop_detail",
+                                    "library_disease_detail",
+                                    "library_tip_detail"
+                                )
+                                if (!isLibraryDetail) {
+                                    Surface(
+                                        color = CardBackground,
+                                        border = BorderStroke(1.dp, BorderColor),
+                                        modifier = Modifier.fillMaxWidth()
                                     ) {
-                                        NavigationBarItem(
-                                            selected = currentScreen == "home",
-                                            onClick = { currentScreen = "home" },
-                                            icon = { NavIcon(Icons.Default.Home, currentScreen == "home") },
-                                            label = { NavLabel(stringResource(R.string.nav_home), currentScreen == "home") },
-                                            colors = navItemColors()
-                                        )
+                                        NavigationBar(
+                                            containerColor = CardBackground,
+                                            tonalElevation = 0.dp,
+                                            windowInsets = NavigationBarDefaults.windowInsets,
+                                            modifier = Modifier.fillMaxWidth()
+                                        ) {
+                                            NavigationBarItem(
+                                                selected = currentScreen == "home",
+                                                onClick = { currentScreen = "home" },
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Home,
+                                                        contentDescription = stringResource(R.string.nav_home),
+                                                        modifier = Modifier.size(24.dp)
+                                                    )
+                                                },
+                                                label = {
+                                                    Text(
+                                                        text = stringResource(R.string.nav_home),
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        fontWeight = if (currentScreen == "home") FontWeight.Bold else FontWeight.Medium
+                                                    )
+                                                },
+                                                colors = NavigationBarItemDefaults.colors(
+                                                    selectedIconColor = PrimaryGreen,
+                                                    selectedTextColor = PrimaryGreen,
+                                                    indicatorColor = LightGreenTint,
+                                                    unselectedIconColor = SecondaryText,
+                                                    unselectedTextColor = SecondaryText
+                                                )
+                                            )
 
-                                        NavigationBarItem(
-                                            selected = currentScreen == "camera",
-                                            onClick = { currentScreen = "camera" },
-                                            icon = { NavIcon(Icons.Default.PhotoCamera, currentScreen == "camera") },
-                                            label = { NavLabel(stringResource(R.string.nav_scan), currentScreen == "camera") },
-                                            colors = navItemColors()
-                                        )
+                                            NavigationBarItem(
+                                                selected = currentScreen == "community",
+                                                onClick = { currentScreen = "community" },
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Groups,
+                                                        contentDescription = stringResource(R.string.nav_community),
+                                                        modifier = Modifier.size(24.dp)
+                                                    )
+                                                },
+                                                label = {
+                                                    Text(
+                                                        text = stringResource(R.string.nav_community),
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        fontWeight = if (currentScreen == "community") FontWeight.Bold else FontWeight.Medium
+                                                    )
+                                                },
+                                                colors = NavigationBarItemDefaults.colors(
+                                                    selectedIconColor = PrimaryGreen,
+                                                    selectedTextColor = PrimaryGreen,
+                                                    indicatorColor = LightGreenTint,
+                                                    unselectedIconColor = SecondaryText,
+                                                    unselectedTextColor = SecondaryText
+                                                )
+                                            )
 
-                                        NavigationBarItem(
-                                            selected = currentScreen == "history",
-                                            onClick = { currentScreen = "history" },
-                                            icon = { NavIcon(Icons.Default.History, currentScreen == "history") },
-                                            label = { NavLabel(stringResource(R.string.nav_history), currentScreen == "history") },
-                                            colors = navItemColors()
-                                        )
+                                            NavigationBarItem(
+                                                selected = currentScreen == "market",
+                                                onClick = { currentScreen = "market" },
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Storefront,
+                                                        contentDescription = stringResource(R.string.nav_market),
+                                                        modifier = Modifier.size(24.dp)
+                                                    )
+                                                },
+                                                label = {
+                                                    Text(
+                                                        text = stringResource(R.string.nav_market),
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        fontWeight = if (currentScreen == "market") FontWeight.Bold else FontWeight.Medium
+                                                    )
+                                                },
+                                                colors = NavigationBarItemDefaults.colors(
+                                                    selectedIconColor = PrimaryGreen,
+                                                    selectedTextColor = PrimaryGreen,
+                                                    indicatorColor = LightGreenTint,
+                                                    unselectedIconColor = SecondaryText,
+                                                    unselectedTextColor = SecondaryText
+                                                )
+                                            )
 
-                                        NavigationBarItem(
-                                            selected = currentScreen == "advisor",
-                                            onClick = { currentScreen = "advisor" },
-                                            icon = { NavIcon(Icons.Default.Psychology, currentScreen == "advisor") },
-                                            label = { NavLabel(stringResource(R.string.nav_advisor), currentScreen == "advisor") },
-                                            colors = navItemColors()
-                                        )
+                                            NavigationBarItem(
+                                                selected = currentScreen == "advisor",
+                                                onClick = { currentScreen = "advisor" },
+                                                icon = {
+                                                    Icon(
+                                                        imageVector = Icons.Default.Psychology,
+                                                        contentDescription = stringResource(R.string.nav_advisor),
+                                                        modifier = Modifier.size(24.dp)
+                                                    )
+                                                },
+                                                label = {
+                                                    Text(
+                                                        text = stringResource(R.string.nav_advisor),
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        fontWeight = if (currentScreen == "advisor") FontWeight.Bold else FontWeight.Medium
+                                                    )
+                                                },
+                                                colors = NavigationBarItemDefaults.colors(
+                                                    selectedIconColor = PrimaryGreen,
+                                                    selectedTextColor = PrimaryGreen,
+                                                    indicatorColor = LightGreenTint,
+                                                    unselectedIconColor = SecondaryText,
+                                                    unselectedTextColor = SecondaryText
+                                                )
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -163,15 +276,111 @@ class MainActivity : ComponentActivity() {
                                     HomeScreen(
                                         cameraPermissionGranted = cameraPermissionGranted,
                                         onScanClick = { currentScreen = "camera" },
-                                        onHistoryClick = { currentScreen = "history" },
+                                        onHistoryClick = { currentScreen = "advisor_history" },
                                         onLanguageChanged = { langCode ->
                                             updateLanguage(langCode)
                                         },
                                         onLogout = {
                                             isAuthCompleted = false
                                         },
+                                        onLibraryCropsClick = { currentScreen = "library_crops" },
+                                        onLibraryPestsClick = { currentScreen = "library_pests_diseases" },
+                                        onLibraryTipsClick = { currentScreen = "library_cultivation_tips" },
                                         modifier = Modifier.padding(innerPadding)
                                     )
+                                }
+
+                                "library_crops" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CropsScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onCropClick = { cropId ->
+                                                selectedCropDetailId = cropId
+                                                currentScreen = "library_crop_detail"
+                                            }
+                                        )
+                                    }
+                                }
+
+                                "library_crop_detail" -> {
+                                    BackHandler { currentScreen = "library_crops" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CropDetailScreen(
+                                            cropId = selectedCropDetailId,
+                                            onBack = { currentScreen = "library_crops" }
+                                        )
+                                    }
+                                }
+
+                                "library_pests_diseases" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        PestsDiseasesScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onDiseaseClick = { diseaseId ->
+                                                selectedDiseaseDetailId = diseaseId
+                                                currentScreen = "library_disease_detail"
+                                            }
+                                        )
+                                    }
+                                }
+
+                                "library_disease_detail" -> {
+                                    BackHandler { currentScreen = "library_pests_diseases" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        DiseaseDetailScreen(
+                                            diseaseId = selectedDiseaseDetailId,
+                                            onBack = { currentScreen = "library_pests_diseases" }
+                                        )
+                                    }
+                                }
+
+                                "library_cultivation_tips" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CultivationTipsScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onTipClick = { tipId ->
+                                                selectedTipDetailId = tipId
+                                                currentScreen = "library_tip_detail"
+                                            }
+                                        )
+                                    }
+                                }
+
+                                "library_tip_detail" -> {
+                                    BackHandler { currentScreen = "library_cultivation_tips" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CultivationTipDetailScreen(
+                                            tipId = selectedTipDetailId,
+                                            onBack = { currentScreen = "library_cultivation_tips" }
+                                        )
+                                    }
                                 }
 
                                 "camera" -> {
@@ -180,13 +389,23 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
 
-                                "history" -> {
+                                "community" -> {
                                     Box(
                                         modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)
                                     ) {
-                                        HistoryScreen()
+                                        CommunityScreen()
+                                    }
+                                }
+
+                                "market" -> {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        MarketScreen()
                                     }
                                 }
 
@@ -196,7 +415,20 @@ class MainActivity : ComponentActivity() {
                                             .fillMaxSize()
                                             .padding(innerPadding)
                                     ) {
-                                        AdvisorScreen()
+                                        AdvisorScreen(
+                                            onHistoryClick = { currentScreen = "advisor_history" }
+                                        )
+                                    }
+                                }
+
+                                "advisor_history" -> {
+                                    BackHandler { currentScreen = "advisor" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        HistoryScreen(onBack = { currentScreen = "advisor" })
                                     }
                                 }
                             }
@@ -206,41 +438,4 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-@Composable
-fun navItemColors() = NavigationBarItemDefaults.colors(
-    selectedIconColor = DarkForestGreen,
-    selectedTextColor = DarkForestGreen,
-    indicatorColor = WarmWhiteSurface,
-    unselectedIconColor = Color.White,
-    unselectedTextColor = Color.White
-)
-
-@Composable
-fun NavIcon(icon: androidx.compose.ui.graphics.vector.ImageVector, selected: Boolean) {
-    if (selected) {
-        Box(
-            modifier = Modifier
-                .size(40.dp, 32.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(WarmWhiteSurface),
-            contentAlignment = androidx.compose.ui.Alignment.Center
-        ) {
-            Icon(icon, null, tint = DarkForestGreen)
-        }
-    } else {
-        Icon(icon, null)
-    }
-}
-
-@Composable
-fun NavLabel(text: String, selected: Boolean) {
-    Text(
-        text = text,
-        fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-        style = MaterialTheme.typography.labelMedium,
-        maxLines = 1,
-        softWrap = false
-    )
 }

@@ -4,8 +4,23 @@
     <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कॅन</string>
+    <string name="nav_community">समुदाय</string>
+    <string name="nav_market">बाजार</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_advisor">सल्लागार</string>
+
+    <!-- Community Screen -->
+    <string name="community_title">शेतकरी समुदाय</string>
+    <string name="community_subtitle">शेतकऱ्यांशी जोडा, चर्चा करा आणि शिका</string>
+    <string name="community_ask_prompt">प्रश्न विचारा किंवा शेतीविषयक माहिती शेअर करा...</string>
+    <string name="community_post_button">पोस्ट करा</string>
+    <string name="community_filter_all">सर्व</string>
+    <string name="community_filter_crops">पिके</string>
+    <string name="community_filter_diseases">रोग</string>
+    <string name="community_filter_organic">सेंद्रिय</string>
+    <string name="community_filter_tips">सल्ला</string>
+    <string name="community_likes">%1$d लाईक्स</string>
+    <string name="community_replies">%1$d उत्तरे</string>
 
     <!-- Auth / Registration / Login -->
     <string name="login_title">पुन्हा स्वागत आहे</string>
@@ -38,8 +53,23 @@
     <string name="guest_user">पाहुणे शेतकरी</string>
     <string name="home_subtitle">तुमचे रोप तपासा, तुमचे पीक वाचवा.</string>
     <string name="check_my_plant">माझे रोप तपासा</string>
-    <string name="check_plant_desc">संभाव्य रोगाची ओळख पटवण्यासाठी पान स्कॅन करा.</string>
-    <string name="scan_crop">पीक स्कॅन करा</string>
+    <string name="check_plant_desc">रोगाची ओळख आणि उपाय मिळवण्यासाठी बाधित पानाचा फोटो घ्या.</string>
+    <string name="take_picture">फोटो काढा</string>
+    <string name="scan_crop">फोटो काढा</string>
+    <string name="weather_title">आजचे शेतीचे हवामान</string>
+    <string name="weather_condition">अंशतः ढगाळ</string>
+    <string name="weather_temp">28°C</string>
+    <string name="weather_humidity">65% आर्द्रता</string>
+    <string name="weather_wind">12 किमी/तास वारा</string>
+    <string name="step_take_photo">1. बाधित पानाचा फोटो घ्या</string>
+    <string name="step_get_diagnosis">2. रोग निदान व उपाय पहा</string>
+    <string name="step_take_picture">फोटो काढा</string>
+    <string name="step_see_diagnosis">निदान पहा</string>
+    <string name="step_get_treatment">उपचार मिळवा</string>
+    <string name="spraying_conditions">फवारणीची स्थिती</string>
+    <string name="spraying_optimal">अनुकूल</string>
+    <string name="spraying_rest_of_day">दिवसभर</string>
+    <string name="add_crop">पीक जोडा</string>
     <string name="camera_ready">कॅमेरा तयार आहे ✓</string>
     <string name="camera_permission_required">कॅमेरा परवानगी आवश्यक आहे</string>
     <string name="recent_scans">अलीकडील स्कॅन</string>
@@ -110,4 +140,74 @@
     <string name="crop_selection_title">तुम्ही उगवणारी पिके निवडा</string>
     <string name="crop_selection_subtitle">सहज व्यवस्थापित करण्यासाठी तुमची पिके निवडा.</string>
     <string name="save_crops">पिके जतन करा</string>
+
+    <!-- Market Screen -->
+    <string name="market_title">कृषी बाजार</string>
+    <string name="market_subtitle">दैनिक कृषी बाजार भाव आणि माहिती</string>
+    <string name="market_search_placeholder">पिके किंवा बाजार शोधा...</string>
+    <string name="market_all_crops">सर्व पिके</string>
+    <string name="market_price_per_quintal">₹%1$d / क्विंटल</string>
+    <string name="market_updated_today">आजचे भाव</string>
+    <string name="market_mandi_prefix">बाजार: %1$s</string>
+    <string name="market_state_prefix">%1$s</string>
+    <string name="market_trend_up">▲ +%1$.1f%%</string>
+    <string name="market_trend_down">▼ -%1$.1f%%</string>
+    <string name="market_trend_steady">● स्थिर</string>
+    <string name="market_insights_title">बाजार सल्ला</string>
+    <string name="market_insights_desc">बाजार आवक स्थिर असल्याने या आठवड्यात कडधान्ये आणि तेलबियांचे भाव स्थिर राहण्याचा अंदाज आहे.</string>
+    <string name="view_scan_history">स्कॅन इतिहास पहा</string>
+    <string name="view_scan_history_desc">तुमचे मागील वनस्पती स्कॅन आणि रोग निदान रेकॉर्ड पहा</string>
+
+    <!-- Library Section -->
+    <string name="library_title">माहिती दालन (Library)</string>
+    <string name="library_subtitle">पिके, कीड-रोग आणि शेती पद्धतींची परिपूर्ण माहिती</string>
+    <string name="library_category_crops">पिके</string>
+    <string name="library_category_pests_diseases">कीड व रोग</string>
+    <string name="library_category_cultivation_tips">लागवड तंत्रज्ञान</string>
+
+    <string name="crops_screen_title">पिके</string>
+    <string name="crops_screen_desc">यशस्वी शेतीसाठी अनुकूल हवामान, जमिनीची गरज, आंतरपिके आणि पीक फेरपालटीविषयी माहिती घ्या.</string>
+    <string name="search_crops">पीक शोधा...</string>
+    <string name="no_crops_found">कोणतेही पीक आढळले नाही.</string>
+
+    <string name="pests_diseases_title">कीड व रोग</string>
+    <string name="pests_diseases_desc">पिकाच्या वाढीच्या अवस्थेनुसार कीड व रोगांची ओळख पटवा आणि प्रतिबंधात्मक उपाय करा.</string>
+    <string name="select_crop_label">निवडलेले पीक:</string>
+    <string name="all_stages">सर्व अवस्था</string>
+    <string name="stage_seedling">रोपवाटिका / उगवण अवस्था</string>
+    <string name="stage_vegetative">शाकीय वाढीची अवस्था</string>
+    <string name="stage_flowering">फुलोरा अवस्था</string>
+    <string name="stage_fruiting">फळधारणा अवस्था</string>
+    <string name="stage_maturity">पक्वता अवस्था</string>
+    <string name="stage_harvesting">कापणी / काढणी अवस्था</string>
+    <string name="pest_badge">कीड</string>
+    <string name="disease_badge">रोग</string>
+
+    <string name="cultivation_tips_title">लागवड तंत्रज्ञान</string>
+    <string name="cultivation_tips_desc">पीक लागवडीच्या प्रत्येक टप्प्यासाठी व्यावहारिक मार्गदर्शन.</string>
+    <string name="tab_by_task">कामांनुसार</string>
+    <string name="tab_by_stage">अवस्थेनुसार</string>
+
+    <string name="crop_overview_heading">पीक परिचय</string>
+    <string name="growing_conditions_heading">वाढीसाठी पोषक वातावरण</string>
+    <string name="climate_label">अनुकूल हवामान</string>
+    <string name="ideal_temp_label">योग्य तापमान</string>
+    <string name="soil_label">जमिनीचा प्रकार</string>
+    <string name="soil_ph_label">सामू (pH)</string>
+    <string name="water_req_label">पाण्याची गरज</string>
+    <string name="sowing_season_label">पेरणी / लागवड काळ</string>
+    <string name="duration_label">पिकाचा कालावधी</string>
+    <string name="fertilizer_heading">खत व पोषण व्यवस्थापन</string>
+    <string name="pests_diseases_heading">प्रमुख कीड व रोग</string>
+    <string name="harvesting_heading">काढणी व हाताळणी</string>
+    <string name="companion_heading">आंतरपिके / सोबती पिके</string>
+    <string name="rotation_heading">पीक फेरपालट शिफारशी</string>
+
+    <string name="disease_symptoms_heading">लक्षणे</string>
+    <string name="disease_causes_heading">कारणे</string>
+    <string name="disease_conditions_heading">रोगास अनुकूल हवामान</string>
+    <string name="disease_prevention_heading">प्रतिबंधात्मक उपाय</string>
+    <string name="disease_treatment_heading">उपाययोजना व फवारणी</string>
+    <string name="disease_management_heading">सर्वसाधारण पीक व्यवस्थापन</string>
+    <string name="back">मागे</string>
 </resources>
