@@ -174,13 +174,18 @@ fun CameraScreen(
         mutableStateOf(false)
     }
 
-    val classifier = remember {
-        CropDiseaseClassifier(context)
+    var isCameraHardwareAvailable by remember {
+        mutableStateOf(true)
+    }
+
+    // Lazy load the classifier so screen opening cannot crash if model loading takes time
+    var classifier by remember {
+        mutableStateOf<CropDiseaseClassifier?>(null)
     }
 
     DisposableEffect(Unit) {
         onDispose {
-            classifier.close()
+            classifier?.close()
         }
     }
 
@@ -222,6 +227,10 @@ fun CameraScreen(
 
                     Thread {
                         try {
+                            if (classifier == null) {
+                                classifier = CropDiseaseClassifier(context)
+                            }
+
                             val inputStream =
                                 context.contentResolver.openInputStream(
                                     capturedImageUri!!
@@ -233,7 +242,7 @@ fun CameraScreen(
                             inputStream?.close()
 
                             if (bitmap != null) {
-                                val result = classifier.classify(bitmap)
+                                val result = classifier!!.classify(bitmap)
                                 prediction = result
 
                                 if (
@@ -338,6 +347,76 @@ fun CameraScreen(
                     Text(text = stringResource(R.string.back))
                 }
             }
+        } else if (!isCameraHardwareAvailable) {
+            // Fallback card if device / emulator has no available camera hardware
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(32.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Surface(
+                    shape = CircleShape,
+                    color = Color.White.copy(alpha = 0.1f),
+                    modifier = Modifier.size(80.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = Icons.Default.Image,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Text(
+                    text = stringResource(R.string.camera_unavailable),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    text = stringResource(R.string.camera_unavailable_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White.copy(alpha = 0.8f),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Button(
+                    onClick = { galleryLauncher.launch("image/*") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = PrimaryGreen,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.camera_gallery),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                OutlinedButton(
+                    onClick = onBack,
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+                    border = BorderStroke(1.dp, Color.White.copy(alpha = 0.5f)),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(text = stringResource(R.string.back))
+                }
+            }
         } else {
             // CameraX Live Preview
             AndroidView(
@@ -348,28 +427,39 @@ fun CameraScreen(
                     val cameraProviderFuture = ProcessCameraProvider.getInstance(ctx)
 
                     cameraProviderFuture.addListener({
-                        val cameraProvider = cameraProviderFuture.get()
-                        val preview = Preview.Builder().build()
-                        val capture = ImageCapture.Builder()
-                            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                            .build()
-
-                        imageCapture = capture
-
-                        preview.setSurfaceProvider(previewView.surfaceProvider)
-                        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
                         try {
-                            cameraProvider.unbindAll()
-                            val cam = cameraProvider.bindToLifecycle(
-                                lifecycleOwner,
-                                cameraSelector,
-                                preview,
-                                capture
-                            )
-                            cameraInstance = cam
+                            val cameraProvider = cameraProviderFuture.get()
+                            val preview = Preview.Builder().build()
+                            val capture = ImageCapture.Builder()
+                                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                                .build()
+
+                            imageCapture = capture
+
+                            preview.setSurfaceProvider(previewView.surfaceProvider)
+
+                            // Select back camera if available, otherwise front camera
+                            val cameraSelector = when {
+                                cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) -> CameraSelector.DEFAULT_BACK_CAMERA
+                                cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) -> CameraSelector.DEFAULT_FRONT_CAMERA
+                                else -> null
+                            }
+
+                            if (cameraSelector != null) {
+                                cameraProvider.unbindAll()
+                                val cam = cameraProvider.bindToLifecycle(
+                                    lifecycleOwner,
+                                    cameraSelector,
+                                    preview,
+                                    capture
+                                )
+                                cameraInstance = cam
+                            } else {
+                                isCameraHardwareAvailable = false
+                            }
                         } catch (e: Exception) {
                             e.printStackTrace()
+                            isCameraHardwareAvailable = false
                         }
                     }, ContextCompat.getMainExecutor(ctx))
 

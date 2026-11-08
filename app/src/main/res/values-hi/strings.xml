@@ -96,6 +96,8 @@
     <string name="camera_help_tip_6">जहां तक संभव हो एक समय में एक ही पत्ती की फोटो लें।</string>
     <string name="camera_got_it">समझ गया</string>
     <string name="camera_grant_permission">कैमरा अनुमति दें</string>
+    <string name="camera_unavailable">कैमरा अनुपलब्ध</string>
+    <string name="camera_unavailable_desc">कोई संगत कैमरा नहीं मिला या कैमरा हार्डवेयर व्यस्त है। आप अभी भी गैलरी से फोटो चुन सकते हैं।</string>
     <string name="crop_analysis">फसल विश्लेषण</string>
     <string name="analyzing_crop">फसल का विश्लेषण किया जा रहा है...</string>
     <string name="low_confidence_title">⚠️ कम आत्मविश्वास</string>

@@ -96,6 +96,8 @@
     <string name="camera_help_tip_6">Capture one leaf at a time whenever possible.</string>
     <string name="camera_got_it">Got it</string>
     <string name="camera_grant_permission">Grant Camera Permission</string>
+    <string name="camera_unavailable">Camera unavailable</string>
+    <string name="camera_unavailable_desc">No compatible camera found or camera hardware is busy. You can still pick a plant photo from your device gallery.</string>
     <string name="crop_analysis">Crop Analysis</string>
     <string name="analyzing_crop">Analyzing crop...</string>
     <string name="low_confidence_title">⚠️ Low Confidence</string>

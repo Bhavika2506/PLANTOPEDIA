@@ -96,6 +96,8 @@
     <string name="camera_help_tip_6">शक्य असेल तेव्हा एका वेळी एकाच पानाचा फोटो घ्या.</string>
     <string name="camera_got_it">समजले</string>
     <string name="camera_grant_permission">कॅमेरा परवानगी द्या</string>
+    <string name="camera_unavailable">कॅमेरा अनुपलब्ध</string>
+    <string name="camera_unavailable_desc">सुसंगत कॅमेरा आढळला नाही किंवा कॅमेरा हार्डवेअर व्यस्त आहे. आपण तरीही गॅलरीमधून फोटो निवडू शकता.</string>
     <string name="crop_analysis">पीक विश्लेषण</string>
     <string name="analyzing_crop">पिकाचे विश्लेषण करत आहे...</string>
     <string name="low_confidence_title">⚠️ कमी विश्वासार्हता</string>
