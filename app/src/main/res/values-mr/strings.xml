@@ -157,4 +157,57 @@
     <string name="market_insights_desc">बाजार आवक स्थिर असल्याने या आठवड्यात कडधान्ये आणि तेलबियांचे भाव स्थिर राहण्याचा अंदाज आहे.</string>
     <string name="view_scan_history">स्कॅन इतिहास पहा</string>
     <string name="view_scan_history_desc">तुमचे मागील वनस्पती स्कॅन आणि रोग निदान रेकॉर्ड पहा</string>
+
+    <!-- Library Section -->
+    <string name="library_title">माहिती दालन (Library)</string>
+    <string name="library_subtitle">पिके, कीड-रोग आणि शेती पद्धतींची परिपूर्ण माहिती</string>
+    <string name="library_category_crops">पिके</string>
+    <string name="library_category_pests_diseases">कीड व रोग</string>
+    <string name="library_category_cultivation_tips">लागवड तंत्रज्ञान</string>
+
+    <string name="crops_screen_title">पिके</string>
+    <string name="crops_screen_desc">यशस्वी शेतीसाठी अनुकूल हवामान, जमिनीची गरज, आंतरपिके आणि पीक फेरपालटीविषयी माहिती घ्या.</string>
+    <string name="search_crops">पीक शोधा...</string>
+    <string name="no_crops_found">कोणतेही पीक आढळले नाही.</string>
+
+    <string name="pests_diseases_title">कीड व रोग</string>
+    <string name="pests_diseases_desc">पिकाच्या वाढीच्या अवस्थेनुसार कीड व रोगांची ओळख पटवा आणि प्रतिबंधात्मक उपाय करा.</string>
+    <string name="select_crop_label">निवडलेले पीक:</string>
+    <string name="all_stages">सर्व अवस्था</string>
+    <string name="stage_seedling">रोपवाटिका / उगवण अवस्था</string>
+    <string name="stage_vegetative">शाकीय वाढीची अवस्था</string>
+    <string name="stage_flowering">फुलोरा अवस्था</string>
+    <string name="stage_fruiting">फळधारणा अवस्था</string>
+    <string name="stage_maturity">पक्वता अवस्था</string>
+    <string name="stage_harvesting">कापणी / काढणी अवस्था</string>
+    <string name="pest_badge">कीड</string>
+    <string name="disease_badge">रोग</string>
+
+    <string name="cultivation_tips_title">लागवड तंत्रज्ञान</string>
+    <string name="cultivation_tips_desc">पीक लागवडीच्या प्रत्येक टप्प्यासाठी व्यावहारिक मार्गदर्शन.</string>
+    <string name="tab_by_task">कामांनुसार</string>
+    <string name="tab_by_stage">अवस्थेनुसार</string>
+
+    <string name="crop_overview_heading">पीक परिचय</string>
+    <string name="growing_conditions_heading">वाढीसाठी पोषक वातावरण</string>
+    <string name="climate_label">अनुकूल हवामान</string>
+    <string name="ideal_temp_label">योग्य तापमान</string>
+    <string name="soil_label">जमिनीचा प्रकार</string>
+    <string name="soil_ph_label">सामू (pH)</string>
+    <string name="water_req_label">पाण्याची गरज</string>
+    <string name="sowing_season_label">पेरणी / लागवड काळ</string>
+    <string name="duration_label">पिकाचा कालावधी</string>
+    <string name="fertilizer_heading">खत व पोषण व्यवस्थापन</string>
+    <string name="pests_diseases_heading">प्रमुख कीड व रोग</string>
+    <string name="harvesting_heading">काढणी व हाताळणी</string>
+    <string name="companion_heading">आंतरपिके / सोबती पिके</string>
+    <string name="rotation_heading">पीक फेरपालट शिफारशी</string>
+
+    <string name="disease_symptoms_heading">लक्षणे</string>
+    <string name="disease_causes_heading">कारणे</string>
+    <string name="disease_conditions_heading">रोगास अनुकूल हवामान</string>
+    <string name="disease_prevention_heading">प्रतिबंधात्मक उपाय</string>
+    <string name="disease_treatment_heading">उपाययोजना व फवारणी</string>
+    <string name="disease_management_heading">सर्वसाधारण पीक व्यवस्थापन</string>
+    <string name="back">मागे</string>
 </resources>

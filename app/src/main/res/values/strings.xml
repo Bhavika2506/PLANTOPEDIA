@@ -157,4 +157,57 @@
     <string name="market_insights_desc">Prices of pulses and oilseeds are anticipated to hold steady this week due to steady APMC arrivals.</string>
     <string name="view_scan_history">View Scan History</string>
     <string name="view_scan_history_desc">Access your previous plant scans and diagnosis records</string>
+
+    <!-- Library Section -->
+    <string name="library_title">Library</string>
+    <string name="library_subtitle">Explore crops, diseases, and cultivation practices</string>
+    <string name="library_category_crops">Crops</string>
+    <string name="library_category_pests_diseases">Pests &amp; Diseases</string>
+    <string name="library_category_cultivation_tips">Cultivation Tips</string>
+
+    <string name="crops_screen_title">Crops</string>
+    <string name="crops_screen_desc">Learn about optimal growing conditions, soil requirements, crop companions and rotation for successful cultivation.</string>
+    <string name="search_crops">Search crops...</string>
+    <string name="no_crops_found">No crops match your search.</string>
+
+    <string name="pests_diseases_title">Pests &amp; Diseases</string>
+    <string name="pests_diseases_desc">Identify potential pests and diseases by growth stage and apply proactive management.</string>
+    <string name="select_crop_label">Selected Crop:</string>
+    <string name="all_stages">All Stages</string>
+    <string name="stage_seedling">Seedling Stage</string>
+    <string name="stage_vegetative">Vegetative Stage</string>
+    <string name="stage_flowering">Flowering Stage</string>
+    <string name="stage_fruiting">Fruiting Stage</string>
+    <string name="stage_maturity">Maturity Stage</string>
+    <string name="stage_harvesting">Harvesting Stage</string>
+    <string name="pest_badge">Pest</string>
+    <string name="disease_badge">Disease</string>
+
+    <string name="cultivation_tips_title">Cultivation Tips</string>
+    <string name="cultivation_tips_desc">Explore practical guidance for every stage of crop cultivation.</string>
+    <string name="tab_by_task">By Task</string>
+    <string name="tab_by_stage">By Stage</string>
+
+    <string name="crop_overview_heading">Crop Overview</string>
+    <string name="growing_conditions_heading">Growing Conditions</string>
+    <string name="climate_label">Suitable Climate</string>
+    <string name="ideal_temp_label">Ideal Temperature</string>
+    <string name="soil_label">Soil Requirements</string>
+    <string name="soil_ph_label">Soil pH</string>
+    <string name="water_req_label">Water Requirements</string>
+    <string name="sowing_season_label">Sowing Season</string>
+    <string name="duration_label">Growing Duration</string>
+    <string name="fertilizer_heading">Fertilizer &amp; Nutrition</string>
+    <string name="pests_diseases_heading">Common Pests &amp; Diseases</string>
+    <string name="harvesting_heading">Harvesting Information</string>
+    <string name="companion_heading">Companion Crops</string>
+    <string name="rotation_heading">Crop Rotation Recommendations</string>
+
+    <string name="disease_symptoms_heading">Symptoms</string>
+    <string name="disease_causes_heading">Causes</string>
+    <string name="disease_conditions_heading">Conditions Encouraging Disease</string>
+    <string name="disease_prevention_heading">Prevention Methods</string>
+    <string name="disease_treatment_heading">Recommended Treatment</string>
+    <string name="disease_management_heading">General Management Practices</string>
+    <string name="back">Back</string>
 </resources>
