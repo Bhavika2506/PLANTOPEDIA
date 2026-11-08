@@ -80,6 +80,22 @@
     <!-- Camera / Analysis Screen -->
     <string name="camera_back">← वापस</string>
     <string name="camera_capture">📸 फोटो लें</string>
+    <string name="camera_flash_toggle">फ्लैश बदलें</string>
+    <string name="camera_flash_on">फ्लैश चालू</string>
+    <string name="camera_flash_off">फ्लैश बंद</string>
+    <string name="camera_gallery">गैलरी</string>
+    <string name="camera_help">मदद</string>
+    <string name="camera_guidance_message">एग्रोमेडिक साफ पौधों की तस्वीरों के साथ सबसे अच्छा काम करता है 🌱</string>
+    <string name="camera_help_title">फोटो लेने के सुझाव</string>
+    <string name="camera_help_subtitle">सटीक रोग पहचान के लिए इन निर्देशों का पालन करें</string>
+    <string name="camera_help_tip_1">प्रभावित पौधे की पत्ती की स्पष्ट फोटो लें।</string>
+    <string name="camera_help_tip_2">पर्याप्त प्राकृतिक रोशनी सुनिश्चित करें।</string>
+    <string name="camera_help_tip_3">कैमरा स्थिर रखें।</string>
+    <string name="camera_help_tip_4">धुंधली तस्वीरों से बचें।</string>
+    <string name="camera_help_tip_5">प्रभावित क्षेत्र को स्कैनिंग फ्रेम के अंदर रखें।</string>
+    <string name="camera_help_tip_6">जहां तक संभव हो एक समय में एक ही पत्ती की फोटो लें।</string>
+    <string name="camera_got_it">समझ गया</string>
+    <string name="camera_grant_permission">कैमरा अनुमति दें</string>
     <string name="crop_analysis">फसल विश्लेषण</string>
     <string name="analyzing_crop">फसल का विश्लेषण किया जा रहा है...</string>
     <string name="low_confidence_title">⚠️ कम आत्मविश्वास</string>
