@@ -210,4 +210,71 @@
     <string name="disease_treatment_heading">उपाययोजना व फवारणी</string>
     <string name="disease_management_heading">सर्वसाधारण पीक व्यवस्थापन</string>
     <string name="back">मागे</string>
+
+    <!-- Weather Details Screen -->
+    <string name="weather_details_title">हवामान तपशील</string>
+    <string name="weather_details_subtitle">थेट कृषी हवामान आणि अंदाज</string>
+    <string name="current_weather">सध्याचे हवामान</string>
+    <string name="hourly_forecast">ताशी अंदाज (पुढील २४ तास)</string>
+    <string name="change_location">ठिकाण बदला</string>
+    <string name="select_location_title">स्थान निवडा</string>
+    <string name="use_gps_location">सध्याचे GPS स्थान वापरा</string>
+    <string name="search_city_placeholder">शहर किंवा गाव शोधा...</string>
+    <string name="refresh_weather">हवामान रिफ्रेश करा</string>
+    <string name="last_updated">शेवटचे अपडेट: %1$s</string>
+    <string name="feels_like">%1$s जाणवते</string>
+    <string name="humidity_label">आर्द्रता</string>
+    <string name="wind_label">वाऱ्याचा वेग</string>
+    <string name="wind_direction_label">वाऱ्याची दिशा</string>
+    <string name="rainfall_label">पाऊस</string>
+    <string name="rain_prob_label">पावसाची शक्यता</string>
+    <string name="wind_gusts_label">वाऱ्याचे झोके</string>
+    <string name="weather_loading">थेट हवामान माहिती आणत आहे...</string>
+    <string name="weather_error_title">हवामान माहिती उपलब्ध नाही</string>
+    <string name="weather_error_desc">थेट हवामान माहिती लोड करता आली नाही. कृपया तुमचे इंटरनेट कनेक्शन तपासा.</string>
+    <string name="retry">पुन्हा प्रयत्न करा</string>
+    <string name="view_spraying_guidance">फवारणी सल्ला पहा →</string>
+
+    <!-- Spraying Guidance Screen -->
+    <string name="spraying_guidance_title">फवारणी सल्ला</string>
+    <string name="spraying_guidance_subtitle">हवामानावर आधारित कीटकनाशक व फवारणी मार्गदर्शन</string>
+    <string name="current_spraying_status">सध्याची फवारणी स्थिती</string>
+    <string name="status_suitable">अनुकूल</string>
+    <string name="status_caution">सावधगिरी बाळगा</string>
+    <string name="status_not_suitable">अनुकूल नाही</string>
+    <string name="status_insufficient_data">हवामान माहिती अपुरी</string>
+    <string name="factors_affecting_spraying">फवारणीवर परिणाम करणारे घटक</string>
+    <string name="factor_favorable">अनुकूल</string>
+    <string name="factor_caution">सावधगिरी</string>
+    <string name="factor_unfavorable">प्रतिकूल</string>
+    <string name="upcoming_spraying_conditions">आगामी फवारणी स्थिती</string>
+    <string name="spraying_now">आता</string>
+    <string name="spraying_next_2h">पुढील २ तास</string>
+    <string name="spraying_next_4h">पुढील ४ तास</string>
+    <string name="spraying_later_today">आज नंतर</string>
+    <string name="agricultural_safety_title">महत्त्वाच्या कृषी सुरक्षा सूचना</string>
+    <string name="agricultural_safety_body">हवामान-आधारित मार्गदर्शन सामान्य शेतीविषयक माहितीसाठी आहे आणि ते फवारणीच्या सुरक्षिततेची खात्री देत नाही. कीटकनाशकाचा प्रभाव आणि पाऊस प्रतिबंधक कालावधी प्रत्येक उत्पादनानुसार बदलतो. नेहमी औषधाच्या लेबलवरील सूचना वाचा, योग्य प्रमाण वापरा आणि संरक्षणात्मक साधने (PPE) वापरा. केवळ हवामानाच्या माहितीवर रासायनिक मात्रा ठरवू नका.</string>
+
+    <!-- Spraying Explanations -->
+    <string name="exp_optimal">फवारणीसाठी हवामान अनुकूल आहे. तापमान, वारा आणि आर्द्रता सुरक्षित पातळीवर असून पावसाची शक्यता नाही.</string>
+    <string name="exp_high_wind">जोराचा वारा किंवा झोके आहेत. सोसाट्याच्या वाऱ्यात फवारणी केल्याने औषध उडून जाते आणि शेजारच्या पिकांचे नुकसान होऊ शकते.</string>
+    <string name="exp_calm_wind">वारा अतिशय संथ (&lt;३ किमी/तास) आहे. यामुळे हवेतील औषधाचे कण तरंगत राहून भरकटण्याचा धोका असतो.</string>
+    <string name="exp_high_temp">जास्त तापमान (&gt;३२°C) नोंदवले गेले आहे. उष्णतेमुळे औषधाचे थेंब लगेच बाष्पीभवन पावतात व पानांवर करपा पडू शकतो.</string>
+    <string name="exp_low_temp">कमी तापमान (&lt;१०°C) नोंदवले गेले आहे. थंडीमध्ये कीटकनाशकाची कार्यक्षमता कमी होते.</string>
+    <string name="exp_rain_expected">पावसाची शक्यता वर्तवली आहे. पावसामुळे फवारलेले औषध वाहून जाऊ शकते.</string>
+    <string name="exp_high_humidity">जास्त आर्द्रता (&gt;८५%) असल्यामुळे पाने सुकण्यास वेळ लागतो व बुरशीचा धोका वाढतो.</string>
+    <string name="exp_low_humidity">कमी आर्द्रता (&lt;४०%) असल्यामुळे औषध पानांपर्यंत पोहोचण्यापूर्वीच वाळू शकते.</string>
+    <string name="exp_insufficient_data">हवामान माहिती उपलब्ध नसल्याने फवारणी स्थिती तपासता आली नाही.</string>
+
+    <!-- Weather Conditions -->
+    <string name="condition_clear_sky">निरभ्र आकाश</string>
+    <string name="condition_mainly_clear">मुख्यतः निरभ्र</string>
+    <string name="condition_partly_cloudy">अंशतः ढगाळ</string>
+    <string name="condition_overcast">ढगाळ</string>
+    <string name="condition_fog">धुके</string>
+    <string name="condition_drizzle">हलकी रिमझिम</string>
+    <string name="condition_rain">पाऊस</string>
+    <string name="condition_heavy_rain">मुसळधार पाऊस</string>
+    <string name="condition_thunderstorm">वादळी पाऊस</string>
+    <string name="condition_unknown">मध्यम हवामान</string>
 </resources>

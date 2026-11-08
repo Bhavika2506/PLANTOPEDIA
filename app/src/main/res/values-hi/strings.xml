@@ -210,4 +210,71 @@
     <string name="disease_treatment_heading">अनुशंसित उपचार</string>
     <string name="disease_management_heading">सामान्य प्रबंधन पद्धतियां</string>
     <string name="back">वापस</string>
+
+    <!-- Weather Details Screen -->
+    <string name="weather_details_title">मौसम विवरण</string>
+    <string name="weather_details_subtitle">वास्तविक कृषि मौसम और पूर्वानुमान</string>
+    <string name="current_weather">वर्तमान मौसम</string>
+    <string name="hourly_forecast">प्रति घंटा पूर्वानुमान (अगले 24 घंटे)</string>
+    <string name="change_location">स्थान बदलें</string>
+    <string name="select_location_title">स्थान चुनें</string>
+    <string name="use_gps_location">वर्तमान जीपीएस स्थान का उपयोग करें</string>
+    <string name="search_city_placeholder">शहर या गांव खोजें...</string>
+    <string name="refresh_weather">मौसम ताज़ा करें</string>
+    <string name="last_updated">अंतिम अपडेट: %1$s</string>
+    <string name="feels_like">%1$s जैसा महसूस होता है</string>
+    <string name="humidity_label">नमी</string>
+    <string name="wind_label">हवा की गति</string>
+    <string name="wind_direction_label">हवा की दिशा</string>
+    <string name="rainfall_label">वर्षा</string>
+    <string name="rain_prob_label">बारिश की संभावना</string>
+    <string name="wind_gusts_label">हवा के झोंके</string>
+    <string name="weather_loading">वास्तविक मौसम लोड हो रहा है...</string>
+    <string name="weather_error_title">मौसम डेटा अनुपलब्ध है</string>
+    <string name="weather_error_desc">वास्तविक मौसम डेटा लोड नहीं किया जा सका। कृपया अपना इंटरनेट कनेक्शन जांचें।</string>
+    <string name="retry">पुनः प्रयास करें</string>
+    <string name="view_spraying_guidance">छिड़काव मार्गदर्शन देखें →</string>
+
+    <!-- Spraying Guidance Screen -->
+    <string name="spraying_guidance_title">छिड़काव मार्गदर्शन</string>
+    <string name="spraying_guidance_subtitle">मौसम आधारित कीटनाशक व पर्णीय छिड़काव सलाह</string>
+    <string name="current_spraying_status">वर्तमान छिड़काव स्थिति</string>
+    <string name="status_suitable">अनुकूल</string>
+    <string name="status_caution">सावधानी बरतें</string>
+    <string name="status_not_suitable">अनुकूल नहीं</string>
+    <string name="status_insufficient_data">मौसम डेटा अपर्याप्त</string>
+    <string name="factors_affecting_spraying">छिड़काव को प्रभावित करने वाले कारक</string>
+    <string name="factor_favorable">अनुकूल</string>
+    <string name="factor_caution">सावधानी</string>
+    <string name="factor_unfavorable">प्रतिकूल</string>
+    <string name="upcoming_spraying_conditions">आगामी छिड़काव स्थितियां</string>
+    <string name="spraying_now">अभी</string>
+    <string name="spraying_next_2h">अगले 2 घंटे</string>
+    <string name="spraying_next_4h">अगले 4 घंटे</string>
+    <string name="spraying_later_today">आज बाद में</string>
+    <string name="agricultural_safety_title">महत्वपूर्ण कृषि सुरक्षा निर्देश</string>
+    <string name="agricultural_safety_body">मौसम आधारित मार्गदर्शन सामान्य कृषि जागरूकता के लिए है और छिड़काव की सुरक्षा की गारंटी नहीं देता है। प्रत्येक कीटनाशक की कार्यक्षमता और वर्षा प्रतिरोधी अवधि अलग होती है। हमेशा उत्पाद लेबल पढ़ें, अनुशंसित खुराक का पालन करें और सुरक्षा उपकरण (पीपीई) पहनें। केवल मौसम अनुमान के आधार पर कीटनाशक खुराक तय न करें।</string>
+
+    <!-- Spraying Explanations -->
+    <string name="exp_optimal">छिड़काव के लिए मौसम अनुकूल है। तापमान, हवा और आर्द्रता सुरक्षित सीमा में हैं और बारिश का जोखिम नहीं है।</string>
+    <string name="exp_high_wind">तेज हवा या झोंके पाए गए हैं। तेज हवा में छिड़काव करने से दवा उड़कर नष्ट हो सकती है और आस-पास की फसलों को नुकसान हो सकता है।</string>
+    <string name="exp_calm_wind">हवा बहुत शांत (&lt;3 किमी/घं) है। अत्यधिक शांत वातावरण में दवा की बूंदें हवा में तैरती रह सकती हैं।</string>
+    <string name="exp_high_temp">उच्च तापमान (&gt;32°C) दर्ज किया गया है। अधिक गर्मी के कारण घोल तेजी से वाष्पीकृत हो सकता है और पत्तियों को नुकसान हो सकता है।</string>
+    <string name="exp_low_temp">कम तापमान (&lt;10°C) दर्ज किया गया है। ठंड में कीटनाशक का प्रभाव कम हो सकता है।</string>
+    <string name="exp_rain_expected">बारिश होने की संभावना है। बारिश से छिड़काव किया गया रसायन धुल सकता है।</string>
+    <string name="exp_high_humidity">अत्यधिक नमी (&gt;85%) के कारण दवा सूखने में समय लगेगा और फफूंद जनित रोगों का खतरा बढ़ सकता है।</string>
+    <string name="exp_low_humidity">कम नमी (&lt;40%) के कारण बूंदें पत्ती तक पहुंचने से पहले सूख सकती हैं।</string>
+    <string name="exp_insufficient_data">मौसम डेटा उपलब्ध न होने के कारण छिड़काव स्थिति का मूल्यांकन नहीं किया जा सका।</string>
+
+    <!-- Weather Conditions -->
+    <string name="condition_clear_sky">साफ आसमान</string>
+    <string name="condition_mainly_clear">मुख्यतः साफ</string>
+    <string name="condition_partly_cloudy">आंशिक रूप से बादल</string>
+    <string name="condition_overcast">घने बादल</string>
+    <string name="condition_fog">कोहरा</string>
+    <string name="condition_drizzle">हल्की बूंदाबांदी</string>
+    <string name="condition_rain">बारिश</string>
+    <string name="condition_heavy_rain">भारी बारिश</string>
+    <string name="condition_thunderstorm">गरज के साथ बारिश</string>
+    <string name="condition_unknown">मध्यम मौसम</string>
 </resources>

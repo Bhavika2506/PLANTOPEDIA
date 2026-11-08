@@ -149,7 +149,9 @@ class MainActivity : ComponentActivity() {
                                     "camera",
                                     "library_crop_detail",
                                     "library_disease_detail",
-                                    "library_tip_detail"
+                                    "library_tip_detail",
+                                    "weather_details",
+                                    "spraying_guidance"
                                 )
                                 if (!isLibraryDetail) {
                                     Surface(
@@ -286,8 +288,37 @@ class MainActivity : ComponentActivity() {
                                         onLibraryCropsClick = { currentScreen = "library_crops" },
                                         onLibraryPestsClick = { currentScreen = "library_pests_diseases" },
                                         onLibraryTipsClick = { currentScreen = "library_cultivation_tips" },
+                                        onWeatherClick = { currentScreen = "weather_details" },
+                                        onSprayingClick = { currentScreen = "spraying_guidance" },
                                         modifier = Modifier.padding(innerPadding)
                                     )
+                                }
+
+                                "weather_details" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        WeatherDetailsScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onSprayingGuidanceClick = { currentScreen = "spraying_guidance" }
+                                        )
+                                    }
+                                }
+
+                                "spraying_guidance" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        SprayingGuidanceScreen(
+                                            onBack = { currentScreen = "home" }
+                                        )
+                                    }
                                 }
 
                                 "library_crops" -> {

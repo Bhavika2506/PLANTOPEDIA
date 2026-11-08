@@ -210,4 +210,71 @@
     <string name="disease_treatment_heading">Recommended Treatment</string>
     <string name="disease_management_heading">General Management Practices</string>
     <string name="back">Back</string>
+
+    <!-- Weather Details Screen -->
+    <string name="weather_details_title">Weather Details</string>
+    <string name="weather_details_subtitle">Real-time agricultural weather &amp; forecast</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="hourly_forecast">Hourly Forecast (Next 24h)</string>
+    <string name="change_location">Change Location</string>
+    <string name="select_location_title">Select Location</string>
+    <string name="use_gps_location">Use Current GPS Location</string>
+    <string name="search_city_placeholder">Search or type city/village...</string>
+    <string name="refresh_weather">Refresh Weather</string>
+    <string name="last_updated">Last updated: %1$s</string>
+    <string name="feels_like">Feels like %1$s</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="wind_label">Wind Speed</string>
+    <string name="wind_direction_label">Wind Direction</string>
+    <string name="rainfall_label">Rainfall</string>
+    <string name="rain_prob_label">Rain Probability</string>
+    <string name="wind_gusts_label">Wind Gusts</string>
+    <string name="weather_loading">Fetching real-time weather...</string>
+    <string name="weather_error_title">Weather Data Unavailable</string>
+    <string name="weather_error_desc">Could not load real-time weather data. Please check your internet connection.</string>
+    <string name="retry">Retry</string>
+    <string name="view_spraying_guidance">Check Spraying Guidance →</string>
+
+    <!-- Spraying Guidance Screen -->
+    <string name="spraying_guidance_title">Spraying Guidance</string>
+    <string name="spraying_guidance_subtitle">Weather-based pesticide &amp; foliar spraying assessment</string>
+    <string name="current_spraying_status">Current Spraying Status</string>
+    <string name="status_suitable">Suitable</string>
+    <string name="status_caution">Use Caution</string>
+    <string name="status_not_suitable">Not Suitable</string>
+    <string name="status_insufficient_data">Insufficient Weather Data</string>
+    <string name="factors_affecting_spraying">Key Weather Factors</string>
+    <string name="factor_favorable">Favorable</string>
+    <string name="factor_caution">Caution</string>
+    <string name="factor_unfavorable">Unfavorable</string>
+    <string name="upcoming_spraying_conditions">Upcoming Spraying Conditions</string>
+    <string name="spraying_now">Now</string>
+    <string name="spraying_next_2h">Next 2 Hours</string>
+    <string name="spraying_next_4h">Next 4 Hours</string>
+    <string name="spraying_later_today">Later Today</string>
+    <string name="agricultural_safety_title">Important Agricultural Safety</string>
+    <string name="agricultural_safety_body">Weather-based guidance is calculated for general agricultural awareness and does NOT guarantee spraying safety. Pesticide efficacy and rainfast periods vary by chemical formulation. Always read the product label, follow recommended dosages, wear proper protective equipment (PPE), and adhere to local agricultural extension guidelines. Never rely solely on weather estimates for chemical dosages.</string>
+
+    <!-- Spraying Explanations -->
+    <string name="exp_optimal">Weather conditions are favorable for spraying. Temperature, wind, and humidity are within recommended agricultural thresholds with minimal rain risk.</string>
+    <string name="exp_high_wind">Strong winds or gusts detected. Spraying during high winds causes chemical drift, uneven coverage, and risks contaminating neighboring crops.</string>
+    <string name="exp_calm_wind">Wind is very calm (&lt;3 km/h). Extreme calm may indicate a temperature inversion, causing spray particles to float and drift off-target.</string>
+    <string name="exp_high_temp">High temperatures detected (&gt;32°C). High heat causes rapid evaporation of spray droplets and risks leaf scorching (phytotoxicity).</string>
+    <string name="exp_low_temp">Low temperatures detected (&lt;10°C). Cold temperatures can reduce pesticide efficacy and systemic absorption.</string>
+    <string name="exp_rain_expected">Rain or high precipitation probability expected. Rain can wash off sprayed chemicals before they dry or absorb.</string>
+    <string name="exp_high_humidity">High humidity (&gt;85%) slows droplet drying and may promote fungal infections if foliage remains wet.</string>
+    <string name="exp_low_humidity">Low humidity (&lt;40%) accelerates droplet evaporation before reaching target foliage.</string>
+    <string name="exp_insufficient_data">Unable to evaluate spraying conditions due to unavailable weather data.</string>
+
+    <!-- Weather Conditions -->
+    <string name="condition_clear_sky">Clear Sky</string>
+    <string name="condition_mainly_clear">Mainly Clear</string>
+    <string name="condition_partly_cloudy">Partly Cloudy</string>
+    <string name="condition_overcast">Overcast</string>
+    <string name="condition_fog">Fog</string>
+    <string name="condition_drizzle">Light Drizzle</string>
+    <string name="condition_rain">Rain</string>
+    <string name="condition_heavy_rain">Heavy Rain</string>
+    <string name="condition_thunderstorm">Thunderstorm</string>
+    <string name="condition_unknown">Moderate Conditions</string>
 </resources>
