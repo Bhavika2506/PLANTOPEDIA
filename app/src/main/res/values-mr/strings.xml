@@ -80,6 +80,22 @@
     <!-- Camera / Analysis Screen -->
     <string name="camera_back">← मागे</string>
     <string name="camera_capture">📸 फोटो घ्या</string>
+    <string name="camera_flash_toggle">फ्लॅश टॉगल करा</string>
+    <string name="camera_flash_on">फ्लॅश चालू</string>
+    <string name="camera_flash_off">फ्लॅश बंद</string>
+    <string name="camera_gallery">गॅलरी</string>
+    <string name="camera_help">मदत</string>
+    <string name="camera_guidance_message">अ‍ॅग्रोमेडिक स्पष्ट वनस्पतींच्या फोटोंसह सर्वोत्तम कार्य करते 🌱</string>
+    <string name="camera_help_title">फोटो काढण्याच्या टिप्स</string>
+    <string name="camera_help_subtitle">अचूक रोग निदानासाठी या सूचनांचे अनुसरण करा</string>
+    <string name="camera_help_tip_1">बाधित वनस्पतीच्या पानाचा स्पष्ट फोटो घ्या.</string>
+    <string name="camera_help_tip_2">पुरेसा नैसर्गिक प्रकाश असल्याची खात्री करा.</string>
+    <string name="camera_help_tip_3">कॅमेरा स्थिर ठेवा.</string>
+    <string name="camera_help_tip_4">अस्पष्ट फोटो टाळा.</string>
+    <string name="camera_help_tip_5">बाधित भाग स्कॅनिंग फ्रेमच्या आत ठेवा.</string>
+    <string name="camera_help_tip_6">शक्य असेल तेव्हा एका वेळी एकाच पानाचा फोटो घ्या.</string>
+    <string name="camera_got_it">समजले</string>
+    <string name="camera_grant_permission">कॅमेरा परवानगी द्या</string>
     <string name="crop_analysis">पीक विश्लेषण</string>
     <string name="analyzing_crop">पिकाचे विश्लेषण करत आहे...</string>
     <string name="low_confidence_title">⚠️ कमी विश्वासार्हता</string>
