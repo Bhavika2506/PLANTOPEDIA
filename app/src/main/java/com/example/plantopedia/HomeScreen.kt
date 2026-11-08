@@ -152,7 +152,9 @@ fun HomeScreen(
     onLibraryPestsClick: () -> Unit = {},
     onLibraryTipsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
-    onAccountClick: () -> Unit = {}
+    onAccountClick: () -> Unit = {},
+    onWeatherClick: () -> Unit = {},
+    onSprayingClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
     var showMenu by remember { mutableStateOf(false) }
@@ -330,7 +332,9 @@ fun HomeScreen(
 
                 // COMBINED WEATHER AND CHECK MY PLANT SECTION (Plantix inspired unified container)
                 CombinedWeatherAndCheckPlantSection(
-                    onScanClick = onScanClick
+                    onScanClick = onScanClick,
+                    onWeatherClick = onWeatherClick,
+                    onSprayingClick = onSprayingClick
                 )
 
                 // LIBRARY SECTION (Positioned directly below Check My Plant and above Recent Scans)
@@ -694,7 +698,9 @@ fun CircularCropItem(
  */
 @Composable
 fun CombinedWeatherAndCheckPlantSection(
-    onScanClick: () -> Unit
+    onScanClick: () -> Unit,
+    onWeatherClick: () -> Unit = {},
+    onSprayingClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val currentDateStr = remember(context) {
@@ -722,7 +728,10 @@ fun CombinedWeatherAndCheckPlantSection(
             ) {
                 // Weather Pill: Date, Temperature, Weather icon
                 Surface(
-                    modifier = Modifier.weight(1.1f),
+                    modifier = Modifier
+                        .weight(1.1f)
+                        .clip(RoundedCornerShape(16.dp))
+                        .clickable { onWeatherClick() },
                     shape = RoundedCornerShape(16.dp),
                     color = CardBackground,
                     border = BorderStroke(1.dp, BorderColor)
@@ -761,7 +770,10 @@ fun CombinedWeatherAndCheckPlantSection(
 
                 // Spraying Conditions Pill
                 Surface(
-                    modifier = Modifier.weight(1.5f),
+                    modifier = Modifier
+                        .weight(1.5f)
+                        .clip(RoundedCornerShape(16.dp))
+                        .clickable { onSprayingClick() },
                     shape = RoundedCornerShape(16.dp),
                     color = CardBackground,
                     border = BorderStroke(1.dp, BorderColor)
