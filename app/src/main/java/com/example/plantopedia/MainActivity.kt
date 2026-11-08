@@ -132,11 +132,26 @@ class MainActivity : ComponentActivity() {
                         var currentScreen by remember {
                             mutableStateOf("home")
                         }
+                        var selectedCropDetailId by remember {
+                            mutableStateOf("")
+                        }
+                        var selectedDiseaseDetailId by remember {
+                            mutableStateOf("")
+                        }
+                        var selectedTipDetailId by remember {
+                            mutableStateOf("")
+                        }
 
                         Scaffold(
                             containerColor = MaterialTheme.colorScheme.background,
                             bottomBar = {
-                                if (currentScreen != "camera") {
+                                val isLibraryDetail = currentScreen in listOf(
+                                    "camera",
+                                    "library_crop_detail",
+                                    "library_disease_detail",
+                                    "library_tip_detail"
+                                )
+                                if (!isLibraryDetail) {
                                     Surface(
                                         color = CardBackground,
                                         border = BorderStroke(1.dp, BorderColor),
@@ -268,8 +283,104 @@ class MainActivity : ComponentActivity() {
                                         onLogout = {
                                             isAuthCompleted = false
                                         },
+                                        onLibraryCropsClick = { currentScreen = "library_crops" },
+                                        onLibraryPestsClick = { currentScreen = "library_pests_diseases" },
+                                        onLibraryTipsClick = { currentScreen = "library_cultivation_tips" },
                                         modifier = Modifier.padding(innerPadding)
                                     )
+                                }
+
+                                "library_crops" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CropsScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onCropClick = { cropId ->
+                                                selectedCropDetailId = cropId
+                                                currentScreen = "library_crop_detail"
+                                            }
+                                        )
+                                    }
+                                }
+
+                                "library_crop_detail" -> {
+                                    BackHandler { currentScreen = "library_crops" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CropDetailScreen(
+                                            cropId = selectedCropDetailId,
+                                            onBack = { currentScreen = "library_crops" }
+                                        )
+                                    }
+                                }
+
+                                "library_pests_diseases" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        PestsDiseasesScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onDiseaseClick = { diseaseId ->
+                                                selectedDiseaseDetailId = diseaseId
+                                                currentScreen = "library_disease_detail"
+                                            }
+                                        )
+                                    }
+                                }
+
+                                "library_disease_detail" -> {
+                                    BackHandler { currentScreen = "library_pests_diseases" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        DiseaseDetailScreen(
+                                            diseaseId = selectedDiseaseDetailId,
+                                            onBack = { currentScreen = "library_pests_diseases" }
+                                        )
+                                    }
+                                }
+
+                                "library_cultivation_tips" -> {
+                                    BackHandler { currentScreen = "home" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CultivationTipsScreen(
+                                            onBack = { currentScreen = "home" },
+                                            onTipClick = { tipId ->
+                                                selectedTipDetailId = tipId
+                                                currentScreen = "library_tip_detail"
+                                            }
+                                        )
+                                    }
+                                }
+
+                                "library_tip_detail" -> {
+                                    BackHandler { currentScreen = "library_cultivation_tips" }
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(innerPadding)
+                                    ) {
+                                        CultivationTipDetailScreen(
+                                            tipId = selectedTipDetailId,
+                                            onBack = { currentScreen = "library_cultivation_tips" }
+                                        )
+                                    }
                                 }
 
                                 "camera" -> {

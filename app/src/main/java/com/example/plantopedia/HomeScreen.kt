@@ -148,6 +148,9 @@ fun HomeScreen(
     onHistoryClick: () -> Unit,
     onLanguageChanged: (String) -> Unit,
     onLogout: () -> Unit,
+    onLibraryCropsClick: () -> Unit = {},
+    onLibraryPestsClick: () -> Unit = {},
+    onLibraryTipsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     onAccountClick: () -> Unit = {}
 ) {
@@ -328,6 +331,13 @@ fun HomeScreen(
                 // COMBINED WEATHER AND CHECK MY PLANT SECTION (Plantix inspired unified container)
                 CombinedWeatherAndCheckPlantSection(
                     onScanClick = onScanClick
+                )
+
+                // LIBRARY SECTION (Positioned directly below Check My Plant and above Recent Scans)
+                LibraryHomeSection(
+                    onCropsClick = onLibraryCropsClick,
+                    onPestsClick = onLibraryPestsClick,
+                    onTipsClick = onLibraryTipsClick
                 )
 
                 // RECENT SCANS SECTION
@@ -833,6 +843,160 @@ fun CombinedWeatherAndCheckPlantSection(
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * Clean Library Section on the Home screen inspired by Plantix.
+ * Displays three main category cards in a clean row:
+ * 1. Crops
+ * 2. Pests & Diseases
+ * 3. Cultivation Tips
+ */
+@Composable
+fun LibraryHomeSection(
+    onCropsClick: () -> Unit,
+    onPestsClick: () -> Unit,
+    onTipsClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    text = stringResource(R.string.library_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = PrimaryText
+                )
+                Text(
+                    text = stringResource(R.string.library_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = SecondaryText
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            // Category 1: Crops
+            LibraryCategoryCard(
+                modifier = Modifier.weight(1f),
+                title = stringResource(R.string.library_category_crops),
+                illustration = {
+                    Box(
+                        modifier = Modifier.size(54.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = LightGreenTint,
+                            modifier = Modifier.size(46.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Text("🌾", fontSize = 24.sp)
+                            }
+                        }
+                    }
+                },
+                onClick = onCropsClick
+            )
+
+            // Category 2: Pests & Diseases
+            LibraryCategoryCard(
+                modifier = Modifier.weight(1f),
+                title = stringResource(R.string.library_category_pests_diseases),
+                illustration = {
+                    Box(
+                        modifier = Modifier.size(54.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = Color(0xFFFEEBC8),
+                            modifier = Modifier.size(46.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Text("🐛", fontSize = 24.sp)
+                            }
+                        }
+                    }
+                },
+                onClick = onPestsClick
+            )
+
+            // Category 3: Cultivation Tips
+            LibraryCategoryCard(
+                modifier = Modifier.weight(1f),
+                title = stringResource(R.string.library_category_cultivation_tips),
+                illustration = {
+                    Box(
+                        modifier = Modifier.size(54.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = Color(0xFFE2E8F0),
+                            modifier = Modifier.size(46.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Text("🌱", fontSize = 24.sp)
+                            }
+                        }
+                    }
+                },
+                onClick = onTipsClick
+            )
+        }
+    }
+}
+
+@Composable
+fun LibraryCategoryCard(
+    title: String,
+    illustration: @Composable () -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier
+            .clip(RoundedCornerShape(14.dp))
+            .clickable { onClick() },
+        shape = RoundedCornerShape(14.dp),
+        color = CardBackground,
+        border = BorderStroke(1.dp, BorderColor)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 14.dp, horizontal = 6.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            illustration()
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Bold,
+                color = PrimaryText,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                minLines = 2,
+                lineHeight = 16.sp
+            )
         }
     }
 }
