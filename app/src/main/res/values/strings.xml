@@ -80,22 +80,6 @@
     <!-- Camera / Analysis Screen -->
     <string name="camera_back">← Back</string>
     <string name="camera_capture">📸 Capture</string>
-    <string name="camera_flash_toggle">Toggle Flash</string>
-    <string name="camera_flash_on">Flash On</string>
-    <string name="camera_flash_off">Flash Off</string>
-    <string name="camera_gallery">Gallery</string>
-    <string name="camera_help">Help</string>
-    <string name="camera_guidance_message">Agromedic works best with clear plant images 🌱</string>
-    <string name="camera_help_title">Photo Taking Tips</string>
-    <string name="camera_help_subtitle">Follow these instructions for accurate disease detection</string>
-    <string name="camera_help_tip_1">Capture the affected plant leaf clearly.</string>
-    <string name="camera_help_tip_2">Ensure sufficient natural lighting.</string>
-    <string name="camera_help_tip_3">Keep the camera steady.</string>
-    <string name="camera_help_tip_4">Avoid blurry images.</string>
-    <string name="camera_help_tip_5">Keep the affected area inside the scanning frame.</string>
-    <string name="camera_help_tip_6">Capture one leaf at a time whenever possible.</string>
-    <string name="camera_got_it">Got it</string>
-    <string name="camera_grant_permission">Grant Camera Permission</string>
     <string name="crop_analysis">Crop Analysis</string>
     <string name="analyzing_crop">Analyzing crop...</string>
     <string name="low_confidence_title">⚠️ Low Confidence</string>
